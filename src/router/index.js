@@ -1,11 +1,30 @@
 import Vue from 'vue'
+// 通过import ... from ....的方式加载组件，无论组件有没有被用到，都会被加载进来
 import VueRouter from 'vue-router'
-import Recommend from '../views/Recommend'
-import Singer from '../views/Singer'
-import Search from '../views/Search'
-import Rank from '../views/Rank'
+
 Vue.use(VueRouter)
 
+// 实现组件按需加载
+const Recommend = (resolve) => {
+  import('../views/Recommend').then((module) => {
+    resolve(module)
+  })
+}
+const Singer = (resolve) => {
+  import('../views/Singer').then((module) => {
+    resolve(module)
+  })
+}
+const Rank = (resolve) => {
+  import('../views/Rank').then((module) => {
+    resolve(module)
+  })
+}
+const Search = (resolve) => {
+  import('../views/Search').then((module) => {
+    resolve(module)
+  })
+}
 const routes = [
   {
     path: '/',
