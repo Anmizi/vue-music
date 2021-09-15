@@ -5,11 +5,20 @@
 </template>
 
 <script>
+import { getBanner } from '../api/index'
 export default {
-  name: 'Recommend'
+  name: 'Recommend',
+  created () {
+    getBanner()
+      .then(data => {
+        console.log(data)
+      }).catch(error => {
+        console.log(error)
+      })
+  }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>
