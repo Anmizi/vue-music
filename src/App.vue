@@ -1,11 +1,15 @@
 <template>
+<div id="app">
   <Header />
+  <Tabbar></Tabbar>
+</div>
 </template>
 <script>
-import Header from './components/Header.vue'
+import Header from './components/Header'
+import Tabbar from './components/Tabbar'
 export default {
   name: 'App',
-  components: { Header }
+  components: { Header, Tabbar }
 }
 </script>
 <style lang="scss">
