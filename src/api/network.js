@@ -13,7 +13,7 @@ export default {
         params: data
       })
         .then((response) => {
-          resolve(response)
+          resolve(response.data)
         })
         .catch((error) => {
           reject(error)
@@ -24,7 +24,7 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post(path, data)
         .then((response) => {
-          resolve(response)
+          resolve(response.data)
         })
         .catch((error) => {
           reject(error)
