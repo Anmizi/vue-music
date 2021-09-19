@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { getPlayList } from '../api/index'
+import { getPlayList, getAlbum } from '../api/index'
 import ScrollView from '../components/ScrollView'
 import SubHeader from '../components/SubHeader'
 import DetailTop from '../components/DetailTop'
@@ -20,7 +20,7 @@ export default {
   name: 'Detail',
   data () {
     return {
-      playlist: []
+      playlist: {}
     }
   },
   components: {
@@ -30,18 +30,31 @@ export default {
     ScrollView
   },
   created () {
-    getPlayList({ id: this.$route.params.id })
-      .then((data) => {
-        this.playlist = data.playlist
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    const type = this.$route.params.type
+    if (type === 'personalized') {
+      getPlayList({ id: this.$route.params.id })
+        .then((data) => {
+          this.playlist = data.playlist
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    } else if (type === 'albums') {
+      getAlbum({ id: this.$route.params.id })
+        .then(data => {
+          this.playlist = {
+            name: data.album.name,
+            coverImgUrl: data.album.picUrl,
+            tracks: data.songs
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   },
   mounted () {
     const defaultHeight = this.$refs.top.$el.offsetHeight
-    console.log(defaultHeight)
-
     this.$refs.scrollview.scrolling((offsetY) => {
       if (offsetY < 0) {
         // 向上滚动

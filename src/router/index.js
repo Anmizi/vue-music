@@ -42,7 +42,7 @@ const routes = [
     children: [
       {
         // 动态路由匹配
-        path: 'detail/:id',
+        path: 'detail/:id/:type',
         component: Detail
       }
     ]

@@ -6,9 +6,14 @@
         <Personalized
           :personalized="personalized"
           :title="'推荐歌单'"
+          :type="'personalized'"
           @select = "fatherSelectItem"
         ></Personalized>
-        <Personalized :personalized="albums" :title="'最新专辑'"></Personalized>
+        <Personalized
+        :personalized="albums"
+        :title="'最新专辑'"
+        :type="'albums'"
+        @select = "fatherSelectItem"></Personalized>
         <SongList :songs="songs"></SongList>
       </div>
     </ScrollView>
@@ -19,7 +24,7 @@
 </template>
 
 <script>
-import { getBanner, getPersonalized, getAlbum, getNewSong } from '../api/index'
+import { getBanner, getPersonalized, getNewAlbum, getNewSong } from '../api/index'
 import Banner from '../components/Banner'
 import Personalized from '../components/Personalized'
 import SongList from '../components/SongList'
@@ -50,7 +55,7 @@ export default {
       .catch((error) => {
         console.log(error)
       })
-    getAlbum()
+    getNewAlbum()
       .then((data) => {
         this.albums = data.albums.splice(0, 6)
       })
@@ -66,9 +71,9 @@ export default {
       })
   },
   methods: {
-    fatherSelectItem (id) {
+    fatherSelectItem (id, type) {
       this.$router.push({
-        path: `/recommend/detail/${id}`
+        path: `/recommend/detail/${id}/${type}`
       })
     }
   }
