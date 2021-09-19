@@ -1,12 +1,14 @@
 <template>
   <div class="detail">
     <SubHeader :title="playlist.name"></SubHeader>
+    <DetailTop :path="playlist.coverImgUrl"></DetailTop>
   </div>
 </template>
 
 <script>
 import { getPlayList } from '../api/index'
 import SubHeader from '../components/SubHeader'
+import DetailTop from '../components/DetailTop'
 export default {
   name: 'Detail',
   data () {
@@ -15,7 +17,8 @@ export default {
     }
   },
   components: {
-    SubHeader
+    SubHeader,
+    DetailTop
   },
   created () {
     getPlayList({ id: this.$route.params.id })
