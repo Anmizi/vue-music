@@ -11,7 +11,7 @@ export default {
   mounted () {
     this.iscroll = new IScroll(this.$refs.wrapper, {
       mouseWheel: true,
-      scrollbars: true,
+      scrollbars: false,
       // 解决卡顿问题
       scrollX: false,
       scrollY: true,

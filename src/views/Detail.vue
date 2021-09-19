@@ -1,10 +1,31 @@
 <template>
-  <div class="detail">detail</div>
+  <div class="detail">
+    <SubHeader :title="playlist.name"></SubHeader>
+  </div>
 </template>
 
 <script>
+import { getPlayList } from '../api/index'
+import SubHeader from '../components/SubHeader'
 export default {
-  name: 'Detail'
+  name: 'Detail',
+  data () {
+    return {
+      playlist: []
+    }
+  },
+  components: {
+    SubHeader
+  },
+  created () {
+    getPlayList({ id: this.$route.params.id })
+      .then(data => {
+        this.playlist = data.playlist
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 }
 </script>
 
