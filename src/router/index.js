@@ -25,6 +25,11 @@ const Search = (resolve) => {
     resolve(module)
   })
 }
+const Detail = (resolve) => {
+  import('../views/Detail').then((module) => {
+    resolve(module)
+  })
+}
 const routes = [
   {
     path: '/',
@@ -33,7 +38,14 @@ const routes = [
   {
     path: '/recommend',
     name: 'Recommend',
-    component: Recommend
+    component: Recommend,
+    children: [
+      {
+        // 动态路由匹配
+        path: 'detail/:id',
+        component: Detail
+      }
+    ]
   },
   {
     path: '/singer',

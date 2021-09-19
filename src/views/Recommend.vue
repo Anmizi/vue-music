@@ -6,11 +6,13 @@
         <Personalized
           :personalized="personalized"
           :title="'推荐歌单'"
+          @select = "fatherSelectItem"
         ></Personalized>
         <Personalized :personalized="albums" :title="'最新专辑'"></Personalized>
         <SongList :songs="songs"></SongList>
       </div>
     </ScrollView>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -60,6 +62,13 @@ export default {
       .catch((error) => {
         console.log(error)
       })
+  },
+  methods: {
+    fatherSelectItem (id) {
+      this.$router.push({
+        path: `/recommend/detail/${id}`
+      })
+    }
   }
 }
 </script>
@@ -67,6 +76,7 @@ export default {
 <style lang="scss" scoped>
 .recommend{
   position: fixed;
+  overflow: hidden;
   top: 184px;
   left: 0;
   right: 0;

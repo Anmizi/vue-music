@@ -27,9 +27,7 @@ export default {
     // }, 300)
     // 采用观察者模式监听dom结构的变化从而刷新iscroll
     const observer = new MutationObserver((mutationList, observer) => {
-      console.log(this.iscroll.maxScrollY)
       this.iscroll.refresh()
-      console.log(this.iscroll.maxScrollY)
     })
     // 观察内容
     const config = {
