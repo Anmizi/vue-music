@@ -12,6 +12,7 @@ export default {
     this.iscroll = new IScroll(this.$refs.wrapper, {
       mouseWheel: true,
       scrollbars: false,
+      probeType: 3,
       // 解决卡顿问题
       scrollX: false,
       scrollY: true,
@@ -39,6 +40,14 @@ export default {
     }
     // 观察谁，观察哪些内容
     observer.observe(this.$refs.wrapper, config)
+  },
+  methods: {
+    // 提高一个监听滚动距离的方法供外界使用
+    scrolling (fn) {
+      this.iscroll.on('scroll', function () {
+        fn(this.y)
+      })
+    }
   }
 }
 </script>

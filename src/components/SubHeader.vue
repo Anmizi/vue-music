@@ -38,6 +38,8 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/css/mixin.scss';
 .header{
+  position: relative;
+  z-index: 999;
   width: 100%;
   height: 100px;
   display: flex;
