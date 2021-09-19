@@ -2,6 +2,7 @@
   <div class="detail">
     <SubHeader :title="playlist.name"></SubHeader>
     <DetailTop :path="playlist.coverImgUrl"></DetailTop>
+    <DetailBottom :playlist="playlist.tracks"></DetailBottom>
   </div>
 </template>
 
@@ -9,6 +10,7 @@
 import { getPlayList } from '../api/index'
 import SubHeader from '../components/SubHeader'
 import DetailTop from '../components/DetailTop'
+import DetailBottom from '../components/DetailBottom'
 export default {
   name: 'Detail',
   data () {
@@ -18,7 +20,8 @@ export default {
   },
   components: {
     SubHeader,
-    DetailTop
+    DetailTop,
+    DetailBottom
   },
   created () {
     getPlayList({ id: this.$route.params.id })
@@ -39,6 +42,6 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: skyblue;
+  background: #fff;
 }
 </style>
