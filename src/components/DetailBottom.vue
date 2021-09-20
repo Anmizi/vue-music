@@ -55,6 +55,8 @@ export default {
     }
   }
   .item{
+    // 高度自适应,防止歌曲文字内容溢出
+    height: auto;
     h3{
       @include font_color();
       @include font_size($font_medium);

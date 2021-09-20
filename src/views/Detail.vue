@@ -58,8 +58,13 @@ export default {
     this.$refs.scrollview.scrolling((offsetY) => {
       if (offsetY < 0) {
         // 向上滚动
-        const scale = 10 * Math.abs(offsetY) / defaultHeight
-        this.$refs.top.$el.style.filter = `blur(${scale}px)`
+        // const scale = 10 * Math.abs(offsetY) / defaultHeight
+        // this.$refs.top.$el.style.filter = `blur(${scale}px)`
+        // 移动端高斯模糊消耗性能,非要使用建议使用一次,或者用蒙版代替
+
+        const scale = Math.abs(offsetY) / defaultHeight
+        console.log(scale)
+        this.$refs.top.changeMask(scale)
       } else {
         // 向下滚动
         const scale = 1 + offsetY / defaultHeight

@@ -13,6 +13,9 @@ export default {
       mouseWheel: true,
       scrollbars: false,
       probeType: 3,
+      // 解决iscroll插件导致的移动端点击无效问题
+      preventDefault: false,
+      preventDefaultException: { tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT|DIV)$/ },
       // 解决卡顿问题
       scrollX: false,
       scrollY: true,

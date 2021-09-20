@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // 进行全局配置
-axios.defaults.baseURL = 'http://localhost:8080'
+axios.defaults.baseURL = 'http://10.77.169.148:8080'
 axios.defaults.timeout = 3000
 
 // 封装get/post方法

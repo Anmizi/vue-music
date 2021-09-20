@@ -1,6 +1,7 @@
 <template>
   <div class="recommend">
-    <ScrollView>
+    <div class="recommend-wrapper">
+       <ScrollView>
       <div>
         <Banner :banners="banners"></Banner>
         <Personalized
@@ -17,6 +18,7 @@
         <SongList :songs="songs"></SongList>
       </div>
     </ScrollView>
+    </div>
     <transition>
       <router-view></router-view>
     </transition>
@@ -83,11 +85,15 @@ export default {
 <style lang="scss" scoped>
 .recommend{
   position: fixed;
-  overflow: hidden;
   top: 184px;
   left: 0;
   right: 0;
   bottom: 0;
+  .recommend-wrapper{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
 }
 .v-enter{
   transform: translateX(100%);
