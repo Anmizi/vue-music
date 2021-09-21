@@ -22,7 +22,6 @@ export default {
   height: 100px;
   display: flex;
   justify-content: space-between;
-  @include bg_color();
   .header-left, .header-right{
     width: 84px;
     height: 84px;
@@ -30,9 +29,6 @@ export default {
   }
   .header-left{
     @include bg_img('../../assets/images/down')
-  }
-  .header-right{
-    // @include bg_img('../../assets/images/more')
   }
   .header-title{
     display: flex;
