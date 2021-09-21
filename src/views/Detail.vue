@@ -13,9 +13,9 @@
 <script>
 import { getPlayList, getAlbum } from '../api/index'
 import ScrollView from '../components/ScrollView'
-import SubHeader from '../components/SubHeader'
-import DetailTop from '../components/DetailTop'
-import DetailBottom from '../components/DetailBottom'
+import SubHeader from '../components/Detail/DetailHeader'
+import DetailTop from '../components/Detail/DetailTop'
+import DetailBottom from '../components/Detail/DetailBottom'
 export default {
   name: 'Detail',
   data () {
@@ -63,7 +63,6 @@ export default {
         // 移动端高斯模糊消耗性能,非要使用建议使用一次,或者用蒙版代替
 
         const scale = Math.abs(offsetY) / defaultHeight
-        console.log(scale)
         this.$refs.top.changeMask(scale)
       } else {
         // 向下滚动
