@@ -29,8 +29,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../assets/css/mixin';
-@import '../assets/css/variable';
+@import '../../assets/css/mixin';
+@import '../../assets/css/variable';
 .song{
   @include bg_sub_color();
   .song-top{

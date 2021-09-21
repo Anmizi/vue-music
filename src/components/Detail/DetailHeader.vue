@@ -7,7 +7,7 @@
 </template>
 <script>
 export default {
-  name: 'SubHeader',
+  name: 'DetailHeader',
   props: {
     title: {
       type: String,
@@ -36,7 +36,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '../assets/css/mixin.scss';
+@import '../../assets/css/mixin.scss';
 .header{
   position: relative;
   z-index: 999;
@@ -51,10 +51,10 @@ export default {
     margin-top: 8px;
   }
   .header-left{
-    @include bg_img('../assets/images/back')
+    @include bg_img('../../assets/images/back')
   }
   .header-right{
-    @include bg_img('../assets/images/more')
+    @include bg_img('../../assets/images/more')
   }
   .header-title{
     text-align: center;

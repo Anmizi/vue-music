@@ -58,7 +58,7 @@ export default {
 }
 </style>
 <style lang="scss">
-@import '../assets/css/mixin';
+@import '../../assets/css/mixin';
 // 设置css作用于全局，否则无法覆盖
 .swiper-pagination-bullet{
     width: 16px;
