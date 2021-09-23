@@ -5,7 +5,7 @@ import store from './store'
 import VueLazyload from 'vue-lazyload'
 import fastclick from 'fastclick'
 import './assets/css/base.scss'
-
+// 图片懒加载
 Vue.use(VueLazyload, {
   loading: require('./assets/images/loading1.gif')
 })
