@@ -1,18 +1,23 @@
 <template>
   <div class="player">
     <NormalPlayer></NormalPlayer>
-    <!-- <MiniPlayer></MiniPlayer> -->
-    <ListPlayer></ListPlayer>
+    <MiniPlayer @showList="showList"></MiniPlayer>
+    <ListPlayer ref="listPlayer"></ListPlayer>
   </div>
 </template>
 
 <script>
 import NormalPlayer from '../components/Player/NormalPlayer'
-// import MiniPlayer from '../components/Player/MiniPlayer'
+import MiniPlayer from '../components/Player/MiniPlayer'
 import ListPlayer from '../components/Player/ListPlayer'
 export default {
   name: 'Player',
-  components: { NormalPlayer, ListPlayer }
+  components: { NormalPlayer, ListPlayer, MiniPlayer },
+  methods: {
+    showList () {
+      this.$refs.listPlayer.show()
+    }
+  }
 
 }
 </script>

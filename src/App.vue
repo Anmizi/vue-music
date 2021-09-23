@@ -3,7 +3,7 @@
   <Header />
   <Tabbar></Tabbar>
   <router-view></router-view>
-  <Player></Player>
+  <Player v-show="isShow"></Player>
 </div>
 </template>
 <script>
@@ -12,7 +12,12 @@ import Tabbar from './components/Tabbar'
 import Player from './views/Player'
 export default {
   name: 'App',
-  components: { Header, Tabbar, Player }
+  components: { Header, Tabbar, Player },
+  data () {
+    return {
+      isShow: true
+    }
+  }
 }
 </script>
 <style lang="scss">
