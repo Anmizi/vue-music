@@ -12,7 +12,7 @@
     <div class="bottom-control">
       <div class="mode"></div>
       <div class="prev"></div>
-      <div class="play"></div>
+      <div class="play" @click="play" ref="play"></div>
       <div class="next"></div>
       <div class="favorite"></div>
     </div>
@@ -20,8 +20,31 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
-  name: 'PlayerBottom'
+  name: 'PlayerBottom',
+  methods: {
+    ...mapActions([
+      'setIsPlaying'
+    ]),
+    play () {
+      this.setIsPlaying(!this.isPlaying)
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'isPlaying'
+    ])
+  },
+  watch: {
+    isPlaying (newValue, oldValue) {
+      if (newValue) {
+        this.$refs.play.classList.add('active')
+      } else {
+        this.$refs.play.classList.remove('active')
+      }
+    }
+  }
 }
 </script>
 
@@ -83,7 +106,10 @@ export default {
       @include bg_img('../../assets/images/prev')
     }
     .play{
-      @include bg_img('../../assets/images/play')
+      @include bg_img('../../assets/images/pause');
+      &.active{
+        @include bg_img('../../assets/images/play');
+      }
     }
     .next{
       @include bg_img('../../assets/images/next')

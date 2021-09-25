@@ -1,7 +1,7 @@
 <template>
   <swiper ref="mySwiper" :options="swiperOptions" class="banner">
     <swiper-slide class="cd">
-      <div class="cd-wrapper">
+      <div class="cd-wrapper" ref="cdWrapper">
         <img src="http://p4.music.126.net/q1ViZazAkd93W9QPx3215Q==/109951166419008197.jpg" alt="">
       </div>
       <p>歌词啊啊啊啊</p>
@@ -70,6 +70,7 @@
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
 import ScrollView from '../../components/ScrollView'
+import { mapGetters } from 'vuex'
 export default {
   name: 'PlayerMiddle',
   data () {
@@ -90,6 +91,20 @@ export default {
     Swiper,
     SwiperSlide,
     ScrollView
+  },
+  computed: {
+    ...mapGetters([
+      'isPlaying'
+    ])
+  },
+  watch: {
+    isPlaying (newValue, oldValue) {
+      if (newValue) {
+        this.$refs.cdWrapper.classList.add('active')
+      } else {
+        this.$refs.cdWrapper.classList.remove('active')
+      }
+    }
   }
 }
 </script>
@@ -111,6 +126,11 @@ export default {
       border-radius: 50%;
       border: 30px solid #fff;
       overflow: hidden;
+      animation: sport 3s linear infinite;
+      animation-play-state: paused;
+      &.active{
+        animation-play-state: running;
+      }
       img{
         width: 100%;
         height: 100%;
@@ -137,7 +157,14 @@ export default {
   }
 
 }
-
+@keyframes sport{
+  from{
+    transform: rotate(0deg)
+  }
+  to{
+    transform: rotate(360deg)
+  }
+}
 </style>
 <style lang="scss">
 @import '../../assets/css/mixin';

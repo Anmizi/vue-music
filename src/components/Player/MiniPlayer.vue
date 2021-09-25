@@ -5,7 +5,7 @@
         <div class="player-left" @click="showNormalPlayer">
           <img
             src="http://p4.music.126.net/q1ViZazAkd93W9QPx3215Q==/109951166419008197.jpg"
-            alt=""
+            alt="" ref="cd"
           />
           <div class="player-title">
             <h3>演员</h3>
@@ -13,7 +13,7 @@
           </div>
         </div>
         <div class="player-right">
-          <div class="play"></div>
+          <div class="play" @click="play" ref="play"></div>
           <div class="list" @click.stop="showList"></div>
         </div>
       </div>
@@ -28,7 +28,7 @@ import 'velocity-animate/velocity.ui'
 export default {
   name: 'MiniPlayer',
   methods: {
-    ...mapActions(['setFullScreen', 'setMiniPlayer']),
+    ...mapActions(['setFullScreen', 'setMiniPlayer', 'setIsPlaying']),
     showList () {
       this.$emit('showList')
     },
@@ -49,10 +49,24 @@ export default {
       }, function () {
         done()
       })
+    },
+    play () {
+      this.setIsPlaying(!this.isPlaying)
     }
   },
   computed: {
-    ...mapGetters(['isShowMiniPlayer'])
+    ...mapGetters(['isShowMiniPlayer', 'isPlaying'])
+  },
+  watch: {
+    isPlaying (newValue, oldValue) {
+      if (newValue) {
+        this.$refs.play.classList.add('active')
+        this.$refs.cd.classList.add('active')
+      } else {
+        this.$refs.play.classList.remove('active')
+        this.$refs.cd.classList.remove('active')
+      }
+    }
   }
 }
 </script>
@@ -80,6 +94,11 @@ export default {
         height: 100px;
         border-radius: 50%;
         margin-right: 20px;
+        animation: sport 3s linear infinite;
+        animation-play-state: paused;
+        &.active{
+          animation-play-state: running;
+        }
       }
       .player-title {
         display: flex;
@@ -103,7 +122,10 @@ export default {
       .play {
         width: 84px;
         height: 84px;
-        @include bg_img("../../assets/images/play");
+        @include bg_img("../../assets/images/pause");
+        &.active{
+          @include bg_img("../../assets/images/play");
+        }
       }
       .list {
         width: 120px;
@@ -111,6 +133,14 @@ export default {
         @include bg_img("../../assets/images/list");
       }
     }
+  }
+}
+@keyframes sport{
+  from{
+    transform: rotate(0deg)
+  }
+  to{
+    transform: rotate(360deg)
   }
 }
 </style>
