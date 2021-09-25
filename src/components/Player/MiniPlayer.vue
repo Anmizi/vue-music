@@ -1,5 +1,5 @@
 <template>
-  <div class="mini-player">
+  <div class="mini-player" v-show="this.isShowMiniPlayer">
     <div class="player-wrapper">
       <div class="player-left" @click="showNormalPlayer">
         <img src="http://p4.music.126.net/q1ViZazAkd93W9QPx3215Q==/109951166419008197.jpg" alt="">
@@ -17,19 +17,26 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'MiniPlayer',
   methods: {
     ...mapActions([
-      'setFullScreen'
+      'setFullScreen',
+      'setMiniPlayer'
     ]),
     showList () {
       this.$emit('showList')
     },
     showNormalPlayer () {
       this.setFullScreen(true)
+      this.setMiniPlayer(false)
     }
+  },
+  computed: {
+    ...mapGetters([
+      'isShowMiniPlayer'
+    ])
   }
 }
 </script>

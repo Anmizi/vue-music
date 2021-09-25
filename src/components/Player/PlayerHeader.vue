@@ -14,10 +14,12 @@ export default {
   name: 'PlayerHeader',
   methods: {
     ...mapActions([
-      'setFullScreen'
+      'setFullScreen',
+      'setMiniPlayer'
     ]),
     hiddenNormalPlayer () {
       this.setFullScreen(false)
+      this.setMiniPlayer(true)
     }
   }
 }
