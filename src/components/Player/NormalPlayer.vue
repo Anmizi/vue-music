@@ -1,5 +1,5 @@
 <template>
-  <div class="normal-player" v-show="this.$store.getters.isFullScreen">
+  <div class="normal-player" v-show="this.isFullScreen">
     <div class="player-wrapper">
       <PlayerHeader></PlayerHeader>
       <PlayerMiddle></PlayerMiddle>
@@ -15,9 +15,15 @@
 import PlayerHeader from './PlayerHeader'
 import PlayerMiddle from './PlayerMiddle'
 import PlayerBottom from './PlayerBottom'
+import { mapGetters } from 'vuex'
 export default {
   name: 'NormalPlayer',
-  components: { PlayerHeader, PlayerMiddle, PlayerBottom }
+  components: { PlayerHeader, PlayerMiddle, PlayerBottom },
+  computed: {
+    ...mapGetters([
+      'isFullScreen'
+    ])
+  }
 }
 </script>
 

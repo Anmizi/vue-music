@@ -1,9 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import state from './state'
+import mutations from './mutations'
+import actions from './actions'
+import getters from './getters'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  state: state,
+  mutations: mutations,
+  actions: actions,
+  getters: getters
+
+  /*
+
   // state保存全局共享数据
   state: {
     isFullScreen: false
@@ -27,4 +37,6 @@ export default new Vuex.Store({
   },
   modules: {
   }
+
+  */
 })
