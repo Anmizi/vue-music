@@ -10,7 +10,7 @@
       <span>00:00</span>
     </div>
     <div class="bottom-control">
-      <div class="mode"></div>
+      <div class="mode" @click="mode" ref="mode"></div>
       <div class="prev"></div>
       <div class="play" @click="play" ref="play"></div>
       <div class="next"></div>
@@ -21,19 +21,31 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import mode from '../../store/modeType'
 export default {
   name: 'PlayerBottom',
   methods: {
     ...mapActions([
-      'setIsPlaying'
+      'setIsPlaying',
+      'setModeType'
     ]),
     play () {
       this.setIsPlaying(!this.isPlaying)
+    },
+    mode () {
+      if (this.modeType === mode.loop) {
+        this.setModeType(mode.one)
+      } else if (this.modeType === mode.one) {
+        this.setModeType(mode.random)
+      } else if (this.modeType === mode.random) {
+        this.setModeType(mode.loop)
+      }
     }
   },
   computed: {
     ...mapGetters([
-      'isPlaying'
+      'isPlaying',
+      'modeType'
     ])
   },
   watch: {
@@ -42,6 +54,18 @@ export default {
         this.$refs.play.classList.add('active')
       } else {
         this.$refs.play.classList.remove('active')
+      }
+    },
+    modeType (newValue, oldValue) {
+      if (newValue === mode.loop) {
+        this.$refs.mode.classList.remove('random')
+        this.$refs.mode.classList.add('loop')
+      } else if (newValue === mode.one) {
+        this.$refs.mode.classList.remove('loop')
+        this.$refs.mode.classList.add('one')
+      } else if (newValue === mode.random) {
+        this.$refs.mode.classList.remove('one')
+        this.$refs.mode.classList.add('random')
       }
     }
   }
@@ -100,7 +124,16 @@ export default {
       height: 84px;
     }
     .mode{
-      @include bg_img('../../assets/images/loop')
+      @include bg_img('../../assets/images/loop');
+      &.loop{
+        @include bg_img('../../assets/images/loop')
+      }
+      &.one{
+        @include bg_img('../../assets/images/one')
+      }
+      &.random{
+        @include bg_img('../../assets/images/shuffle')
+      }
     }
     .prev{
       @include bg_img('../../assets/images/prev')

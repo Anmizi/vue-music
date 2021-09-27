@@ -4,8 +4,10 @@
       <div class="player-wrapper">
         <div class="player-top">
           <div class="top-left">
-            <div class="mode"></div>
-            <p>顺序播放</p>
+            <div class="mode" @click="mode" ref="mode"></div>
+            <p v-if="this.modeType === 0">顺序播放</p>
+            <p v-else-if="this.modeType === 1">单曲播放</p>
+            <p v-else>随机播放</p>
           </div>
           <div class="top-right">
             <div class="del"></div>
@@ -60,6 +62,7 @@ import ScrollView from '../../components/ScrollView'
 import { mapActions, mapGetters } from 'vuex'
 import Velocity from 'velocity-animate'
 import 'velocity-animate/velocity.ui'
+import mode from '../../store/modeType'
 export default {
   name: 'ListPlayer',
   components: { ScrollView },
@@ -70,7 +73,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setIsPlaying'
+      'setIsPlaying',
+      'setModeType'
     ]),
     show () {
       this.isShow = true
@@ -94,11 +98,21 @@ export default {
     },
     play () {
       this.setIsPlaying(!this.isPlaying)
+    },
+    mode () {
+      if (this.modeType === mode.loop) {
+        this.setModeType(mode.one)
+      } else if (this.modeType === mode.one) {
+        this.setModeType(mode.random)
+      } else if (this.modeType === mode.random) {
+        this.setModeType(mode.loop)
+      }
     }
   },
   computed: {
     ...mapGetters([
-      'isPlaying'
+      'isPlaying',
+      'modeType'
     ])
   },
   watch: {
@@ -107,6 +121,18 @@ export default {
         this.$refs.play.classList.add('active')
       } else {
         this.$refs.play.classList.remove('active')
+      }
+    },
+    modeType (newValue, oldValue) {
+      if (newValue === mode.loop) {
+        this.$refs.mode.classList.remove('random')
+        this.$refs.mode.classList.add('loop')
+      } else if (newValue === mode.one) {
+        this.$refs.mode.classList.remove('loop')
+        this.$refs.mode.classList.add('one')
+      } else if (newValue === mode.random) {
+        this.$refs.mode.classList.remove('one')
+        this.$refs.mode.classList.add('random')
       }
     }
   }
@@ -136,6 +162,15 @@ export default {
           width: 56px;
           height: 56px;
           margin-right: 20px;
+          &.loop{
+            @include bg_img("../../assets/images/small_loop");
+          }
+          &.one{
+            @include bg_img("../../assets/images/small_one");
+          }
+          &.random{
+            @include bg_img("../../assets/images/small_shuffle");
+          }
           @include bg_img("../../assets/images/small_loop");
         }
         p {
