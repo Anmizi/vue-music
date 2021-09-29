@@ -7,5 +7,6 @@ export default {
   modeType: mode.loop,
   songs: [],
   currentSong: {},
-  currentIndex: 0
+  currentIndex: 0,
+  currentLyric: {}
 }

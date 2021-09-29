@@ -20,7 +20,7 @@
 import PlayerHeader from './PlayerHeader'
 import PlayerMiddle from './PlayerMiddle'
 import PlayerBottom from './PlayerBottom'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Velocity from 'velocity-animate'
 import 'velocity-animate/velocity.ui'
 export default {
@@ -33,6 +33,9 @@ export default {
     ])
   },
   methods: {
+    ...mapActions([
+      'getSongLyric'
+    ]),
     enter (el, done) {
       Velocity(el, 'transition.slideLeftBigIn', {
         duration: 500
@@ -46,6 +49,11 @@ export default {
       }, function () {
         done()
       })
+    }
+  },
+  watch: {
+    currentSong (newValue, oldValue) {
+      this.getSongLyric(newValue.id)
     }
   }
 }

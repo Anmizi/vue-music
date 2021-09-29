@@ -21,11 +21,15 @@ export default {
     let obj = {
       name: '',
       singer: '',
+      id: '',
       picUrl: null
     }
     if (state.songs.length !== 0) {
       obj = state.songs[state.currentIndex]
     }
     return obj
+  },
+  currentLyric (state) {
+    return state.currentLyric
   }
 }

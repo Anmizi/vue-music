@@ -4,61 +4,15 @@
       <div class="cd-wrapper" ref="cdWrapper">
         <img :src="currentSong.picUrl" alt="">
       </div>
-      <p>歌词啊啊啊啊</p>
+      <p>{{getFirstLyric()}}</p>
     </swiper-slide>
     <swiper-slide class="lyric">
       <ScrollView>
         <ul>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
-          <li>啊啊啊啊啊啊啊啊</li>
+          <li
+          v-for="value,index in currentLyric"
+          :key="index"
+          >{{value}}</li>
         </ul>
       </ScrollView>
     </swiper-slide>
@@ -95,8 +49,16 @@ export default {
   computed: {
     ...mapGetters([
       'isPlaying',
-      'currentSong'
+      'currentSong',
+      'currentLyric'
     ])
+  },
+  methods: {
+    getFirstLyric () {
+      for (const key in this.currentLyric) {
+        return this.currentLyric[key]
+      }
+    }
   },
   watch: {
     isPlaying (newValue, oldValue) {
