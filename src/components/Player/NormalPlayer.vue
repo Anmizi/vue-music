@@ -1,6 +1,6 @@
 <template>
   <transition @enter="enter" @leave="leave" :css="false">
-    <div class="normal-player" v-show="this.isFullScreen">
+    <div class="normal-player" v-if="this.isFullScreen">
       <div class="player-wrapper">
         <PlayerHeader></PlayerHeader>
         <PlayerMiddle></PlayerMiddle>
@@ -8,7 +8,7 @@
       </div>
       <div class="player-bg">
         <img
-          src="http://p4.music.126.net/q1ViZazAkd93W9QPx3215Q==/109951166419008197.jpg"
+          :src="currentSong.picUrl"
           alt=""
         />
       </div>
@@ -27,7 +27,10 @@ export default {
   name: 'NormalPlayer',
   components: { PlayerHeader, PlayerMiddle, PlayerBottom },
   computed: {
-    ...mapGetters(['isFullScreen'])
+    ...mapGetters([
+      'isFullScreen',
+      'currentSong'
+    ])
   },
   methods: {
     enter (el, done) {

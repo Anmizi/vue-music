@@ -2,7 +2,7 @@
   <swiper ref="mySwiper" :options="swiperOptions" class="banner">
     <swiper-slide class="cd">
       <div class="cd-wrapper" ref="cdWrapper">
-        <img src="http://p4.music.126.net/q1ViZazAkd93W9QPx3215Q==/109951166419008197.jpg" alt="">
+        <img :src="currentSong.picUrl" alt="">
       </div>
       <p>歌词啊啊啊啊</p>
     </swiper-slide>
@@ -94,7 +94,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'isPlaying'
+      'isPlaying',
+      'currentSong'
     ])
   },
   watch: {
