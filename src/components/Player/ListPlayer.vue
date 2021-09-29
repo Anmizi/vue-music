@@ -1,6 +1,6 @@
 <template>
   <transition @enter="enter" @leave="leave" :css="false">
-    <div class="list-player" v-show="isShow">
+    <div class="list-player" v-show="isShowListPlayer">
       <div class="player-wrapper">
         <div class="player-top">
           <div class="top-left">
@@ -66,21 +66,14 @@ import mode from '../../store/modeType'
 export default {
   name: 'ListPlayer',
   components: { ScrollView },
-  data () {
-    return {
-      isShow: false
-    }
-  },
   methods: {
     ...mapActions([
       'setIsPlaying',
-      'setModeType'
+      'setModeType',
+      'setListPlayer'
     ]),
-    show () {
-      this.isShow = true
-    },
     hidden () {
-      this.isShow = false
+      this.setListPlayer(false)
     },
     enter (el, done) {
       Velocity(el, 'transition.perspectiveUpIn', {
@@ -112,7 +105,8 @@ export default {
   computed: {
     ...mapGetters([
       'isPlaying',
-      'modeType'
+      'modeType',
+      'isShowListPlayer'
     ])
   },
   watch: {
@@ -203,9 +197,9 @@ export default {
             width: 56px;
             height: 56px;
             margin-right: 20px;
-            @include bg_img("../../assets/images/small_pause");
+            @include bg_img("../../assets/images/small_play");
             &.active{
-              @include bg_img("../../assets/images/small_play");
+              @include bg_img("../../assets/images/small_pause");
             }
           }
           p {
