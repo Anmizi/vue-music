@@ -1,6 +1,6 @@
 <template>
   <ul class="detail-bottom">
-    <li class="bottom-top">
+    <li class="bottom-top" @click="selectAllMusic">
       <div class="bottom-icon"></div>
       <div class="bottom-title">播放全部</div>
     </li>
@@ -30,6 +30,11 @@ export default {
     selectMusic (id) {
       this.setFullScreen(true)
       this.setSongDetail([id])
+    },
+    selectAllMusic () {
+      this.setFullScreen(true)
+      const ids = this.playlist.map((item) => item.id)
+      this.setSongDetail(ids)
     }
   }
 }

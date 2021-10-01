@@ -19,7 +19,7 @@ export default {
   async setSongDetail ({ commit }, ids) {
     const result = await getSongDetail({ ids: ids.join(',') })
     const urls = await getSongURL({ id: ids.join(',') })
-    console.log(urls)
+    // console.log(result)
     const list = []
     result.songs.forEach((value, index) => {
       const obj = {}
@@ -44,10 +44,10 @@ export default {
     const result = await getSongLyric({ id })
     // console.log(result)
     let obj = {}
-    if (Object.prototype.hasOwnProperty.call(result, 'nolyric')) {
-      obj = { 0: '纯音乐' }
-    } else {
+    if (Object.prototype.hasOwnProperty.call(result, 'lrc') && result.lrc.lyric) {
       obj = parseLyric(result.lrc.lyric)
+    } else {
+      obj = { 0: '纯音乐' }
     }
     commit(SET_SONG_LYRIC, obj)
   }
