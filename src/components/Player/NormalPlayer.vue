@@ -53,6 +53,9 @@ export default {
   },
   watch: {
     currentSong (newValue, oldValue) {
+      if (newValue.id === undefined) {
+        return
+      }
       this.getSongLyric(newValue.id)
     }
   }

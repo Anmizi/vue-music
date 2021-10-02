@@ -10,21 +10,20 @@
             <p v-else>随机播放</p>
           </div>
           <div class="top-right">
-            <div class="del"></div>
+            <div class="del" @click="del()"></div>
           </div>
         </div>
         <div class="player-middle">
           <ScrollView ref="ScrollView">
-            <ul>
-              <li class="item" v-for="value in songs"
-                :key="value.id">
+            <ul ref="play">
+              <li class="item" v-for="(value, index) in songs" :key="value.id">
                 <div class="item-left">
-                  <div class="item-play" @click="play" ref="play"></div>
-                  <p>{{value.name}}</p>
+                  <div class="item-play" @click="play" v-if="currentIndex === index"></div>
+                  <p>{{ value.name }}</p>
                 </div>
                 <div class="item-right">
                   <div class="item-favorite"></div>
-                  <div class="item-del"></div>
+                  <div class="item-del" @click="del(index)"></div>
                 </div>
               </li>
             </ul>
@@ -51,27 +50,43 @@ export default {
     ...mapActions([
       'setIsPlaying',
       'setModeType',
-      'setListPlayer'
+      'setListPlayer',
+      'setDelSong'
     ]),
     hidden () {
       this.setListPlayer(false)
     },
     enter (el, done) {
-      Velocity(el, 'transition.perspectiveUpIn', {
-        duration: 800
-      }, function () {
-        done()
-      })
+      Velocity(
+        el,
+        'transition.perspectiveUpIn',
+        {
+          duration: 800
+        },
+        function () {
+          done()
+        }
+      )
     },
     leave (el, done) {
-      Velocity(el, 'transition.perspectiveUpOut', {
-        duration: 800
-      }, function () {
-        done()
-      })
+      Velocity(
+        el,
+        'transition.perspectiveUpOut',
+        {
+          duration: 800
+        },
+        function () {
+          done()
+        }
+      )
     },
     play () {
       this.setIsPlaying(!this.isPlaying)
+      if (this.isPlaying) {
+        this.$refs.play.classList.add('active')
+      } else {
+        this.$refs.play.classList.remove('active')
+      }
     },
     mode () {
       if (this.modeType === mode.loop) {
@@ -81,15 +96,13 @@ export default {
       } else if (this.modeType === mode.random) {
         this.setModeType(mode.loop)
       }
+    },
+    del (index) {
+      this.setDelSong(index)
     }
   },
   computed: {
-    ...mapGetters([
-      'isPlaying',
-      'modeType',
-      'isShowListPlayer',
-      'songs'
-    ])
+    ...mapGetters(['isPlaying', 'modeType', 'isShowListPlayer', 'songs', 'currentIndex'])
   },
   watch: {
     isPlaying (newValue, oldValue) {
@@ -141,13 +154,13 @@ export default {
           width: 56px;
           height: 56px;
           margin-right: 20px;
-          &.loop{
+          &.loop {
             @include bg_img("../../assets/images/small_loop");
           }
-          &.one{
+          &.one {
             @include bg_img("../../assets/images/small_one");
           }
-          &.random{
+          &.random {
             @include bg_img("../../assets/images/small_shuffle");
           }
           @include bg_img("../../assets/images/small_loop");
@@ -169,6 +182,15 @@ export default {
       height: 700px;
       overflow: hidden;
       width: 100%;
+      ul {
+        &.active {
+          .item {
+            .item-play{
+              @include bg_img("../../assets/images/small_pause");
+            }
+          }
+        }
+      }
       .item {
         display: flex;
         height: 100px;
@@ -185,9 +207,6 @@ export default {
             height: 56px;
             margin-right: 20px;
             @include bg_img("../../assets/images/small_play");
-            &.active{
-              @include bg_img("../../assets/images/small_pause");
-            }
           }
           p {
             flex: 1;

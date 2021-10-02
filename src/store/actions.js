@@ -1,4 +1,4 @@
-import { SET_FULL_SCREEN, SET_MINI_PLAYER, SET_IS_PLAYING, SET_MODE_TYPE, SET_LIST_PLAYER, SET_SONG_DETAIL, SET_SONG_LYRIC } from './mutations-type'
+import { SET_FULL_SCREEN, SET_MINI_PLAYER, SET_IS_PLAYING, SET_MODE_TYPE, SET_LIST_PLAYER, SET_SONG_DETAIL, SET_SONG_LYRIC, SET_DEL_SONG } from './mutations-type'
 import { getSongDetail, getSongLyric, getSongURL } from '../api/index'
 export default {
   setFullScreen ({ commit }, flag) {
@@ -50,6 +50,9 @@ export default {
       obj = { 0: '纯音乐' }
     }
     commit(SET_SONG_LYRIC, obj)
+  },
+  setDelSong ({ commit }, index) {
+    commit(SET_DEL_SONG, index)
   }
 
 }
