@@ -1,4 +1,4 @@
-import { SET_FULL_SCREEN, SET_MINI_PLAYER, SET_IS_PLAYING, SET_MODE_TYPE, SET_LIST_PLAYER, SET_SONG_DETAIL, SET_SONG_LYRIC, SET_DEL_SONG } from './mutations-type'
+import { SET_FULL_SCREEN, SET_MINI_PLAYER, SET_IS_PLAYING, SET_MODE_TYPE, SET_LIST_PLAYER, SET_SONG_DETAIL, SET_SONG_LYRIC, SET_DEL_SONG, SET_CURRENT_INDEX } from './mutations-type'
 export default {
   [SET_FULL_SCREEN] (state, flag) {
     state.isFullScreen = flag
@@ -35,10 +35,21 @@ export default {
     } else {
       state.songs = []
     }
+    if (index < state.currentIndex) {
+      state.currentIndex = state.currentIndex - 1
+    }
     if (state.songs.length === 0) {
       state.isShowListPlayer = false
       state.isShowMiniPlayer = false
       state.isFullScreen = false
     }
+  },
+  [SET_CURRENT_INDEX] (state, index) {
+    if (index < 0) {
+      index = state.songs.length - 1
+    } else if (index > state.songs.length - 1) {
+      index = 0
+    }
+    state.currentIndex = index
   }
 }

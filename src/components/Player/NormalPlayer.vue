@@ -1,6 +1,6 @@
 <template>
   <transition @enter="enter" @leave="leave" :css="false">
-    <div class="normal-player" v-if="this.isFullScreen">
+    <div class="normal-player" v-show="this.isFullScreen">
       <div class="player-wrapper">
         <PlayerHeader></PlayerHeader>
         <PlayerMiddle></PlayerMiddle>
