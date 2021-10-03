@@ -3,7 +3,7 @@
     <NormalPlayer></NormalPlayer>
     <MiniPlayer></MiniPlayer>
     <ListPlayer ref="listPlayer"></ListPlayer>
-    <audio :src="currentSong.url"></audio>
+    <audio :src="currentSong.url" ref="audio"></audio>
   </div>
 </template>
 
@@ -17,8 +17,28 @@ export default {
   components: { NormalPlayer, ListPlayer, MiniPlayer },
   computed: {
     ...mapGetters([
-      'currentSong'
+      'currentSong',
+      'isPlaying',
+      'currentIndex'
     ])
+  },
+  watch: {
+    isPlaying (newVal, oldVal) {
+      if (newVal) {
+        this.$refs.audio.play()
+      } else {
+        this.$refs.audio.pause()
+      }
+    },
+    currentIndex () {
+      this.$refs.audio.oncanplay = () => {
+        if (this.isPlaying) {
+          this.$refs.audio.play()
+        } else {
+          this.$refs.audio.pause()
+        }
+      }
+    }
   }
 
 }
