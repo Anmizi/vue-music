@@ -4,7 +4,7 @@
       <div class="player-wrapper">
         <PlayerHeader></PlayerHeader>
         <PlayerMiddle></PlayerMiddle>
-        <PlayerBottom></PlayerBottom>
+        <PlayerBottom :totalTime="totalTime" :currentTime="currentTime"></PlayerBottom>
       </div>
       <div class="player-bg">
         <img
@@ -57,6 +57,18 @@ export default {
         return
       }
       this.getSongLyric(newValue.id)
+    }
+  },
+  props: {
+    totalTime: {
+      type: Number,
+      default: 0,
+      required: true
+    },
+    currentTime: {
+      type: Number,
+      default: 0,
+      required: true
     }
   }
 }
