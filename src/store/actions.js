@@ -21,12 +21,29 @@ export default {
     const urls = await getSongURL({ id: ids.join(',') })
     // console.log(result)
     const list = []
-    result.songs.forEach((value, index) => {
+    // result.songs.forEach((value, index) => {
+    //   const obj = {}
+    //   obj.url = urls.data[index].url
+    //   obj.name = value.name
+    //   let singer = ''
+    //   value.ar.forEach((item, index) => {
+    //     if (index === 0) {
+    //       singer = item.name
+    //     } else {
+    //       singer += ' ' + item.name
+    //     }
+    //   })
+    //   obj.singer = singer
+    //   obj.picUrl = value.al.picUrl
+    //   obj.id = value.id
+    //   list.push(obj)
+    // })
+    for (let i = 0; i < result.songs.length; i++) {
       const obj = {}
-      obj.url = urls.data[index].url
-      obj.name = value.name
+      obj.url = urls.data[i].url
+      obj.name = result.songs[i].name
       let singer = ''
-      value.ar.forEach((item, index) => {
+      result.songs[i].ar.forEach((item, index) => {
         if (index === 0) {
           singer = item.name
         } else {
@@ -34,10 +51,10 @@ export default {
         }
       })
       obj.singer = singer
-      obj.picUrl = value.al.picUrl
-      obj.id = value.id
+      obj.picUrl = result.songs[i].al.picUrl
+      obj.id = result.songs[i].id
       list.push(obj)
-    })
+    }
     commit(SET_SONG_DETAIL, list)
   },
   async getSongLyric ({ commit }, id) {

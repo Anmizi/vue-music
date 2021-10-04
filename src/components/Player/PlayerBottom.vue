@@ -3,7 +3,7 @@
     <div class="bottom-progress">
       <span ref="elecurrentTime">00:00</span>
       <div class="progress-bar">
-        <div class="progress-line">
+        <div class="progress-line" ref="progressLine">
           <div class="progress-dot"></div>
         </div>
       </div>
@@ -103,8 +103,12 @@ export default {
       this.$refs.eletotalTime.innerHTML = time.minute + ':' + time.second
     },
     currentTime (newValue, oldValue) {
+      // 格式化时间
       const time = this.formartTime(newValue)
       this.$refs.elecurrentTime.innerHTML = time.minute + ':' + time.second
+      // 进度条同步
+      const value = newValue / this.totalTime * 100
+      this.$refs.progressLine.style.width = value + '%'
     }
   },
   props: {
@@ -146,7 +150,7 @@ export default {
       background: #fff;
       .progress-line{
         position: relative;
-        width: 50%;
+        width: 0%;
         height: 100%;
         background: #ccc;
         .progress-dot{
