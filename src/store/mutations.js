@@ -1,4 +1,4 @@
-import { SET_FULL_SCREEN, SET_MINI_PLAYER, SET_IS_PLAYING, SET_MODE_TYPE, SET_LIST_PLAYER, SET_SONG_DETAIL, SET_SONG_LYRIC, SET_DEL_SONG, SET_CURRENT_INDEX } from './mutations-type'
+import { SET_FULL_SCREEN, SET_MINI_PLAYER, SET_IS_PLAYING, SET_MODE_TYPE, SET_LIST_PLAYER, SET_SONG_DETAIL, SET_SONG_LYRIC, SET_DEL_SONG, SET_CURRENT_INDEX, SET_CURRENT_TIME } from './mutations-type'
 export default {
   [SET_FULL_SCREEN] (state, flag) {
     state.isFullScreen = flag
@@ -51,5 +51,8 @@ export default {
       index = 0
     }
     state.currentIndex = index
+  },
+  [SET_CURRENT_TIME] (state, time) {
+    state.curTime = time
   }
 }

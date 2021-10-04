@@ -2,7 +2,7 @@
   <div class="player-bottom">
     <div class="bottom-progress">
       <span ref="elecurrentTime">00:00</span>
-      <div class="progress-bar">
+      <div class="progress-bar" @click="progressClick">
         <div class="progress-line" ref="progressLine">
           <div class="progress-dot"></div>
         </div>
@@ -28,7 +28,8 @@ export default {
     ...mapActions([
       'setIsPlaying',
       'setModeType',
-      'setCurrentIndex'
+      'setCurrentIndex',
+      'setCurrentTime'
     ]),
     play () {
       this.setIsPlaying(!this.isPlaying)
@@ -69,6 +70,17 @@ export default {
         minute: minute,
         second: second
       }
+    },
+    progressClick (e) {
+      console.log('ddd')
+      const normalLeft = e.target.offsetLeft
+      const eventLeft = e.pageX
+      const progressWidth = e.target.offsetWidth
+      const value = (eventLeft - normalLeft) / progressWidth
+      console.log(value)
+      this.$refs.progressLine.style.width = value * 100 + '%'
+      const currentTime = value * this.totalTime
+      this.setCurrentTime(currentTime)
     }
   },
   computed: {
@@ -110,6 +122,7 @@ export default {
       const value = newValue / this.totalTime * 100
       this.$refs.progressLine.style.width = value + '%'
     }
+
   },
   props: {
     totalTime: {
