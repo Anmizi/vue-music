@@ -33,7 +33,15 @@ export default {
     },
     selectAllMusic () {
       this.setFullScreen(true)
-      const ids = this.playlist.map((item) => item.id)
+      // const ids = this.playlist.map((item) => item.id)
+      console.log(this.playlist)
+
+      const ids = []
+      for (let i = 0; i < this.playlist.length; i++) {
+        ids.push(this.playlist[i].id)
+      }
+      console.log(ids)
+
       this.setSongDetail(ids)
     }
   }

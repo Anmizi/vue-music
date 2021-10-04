@@ -72,12 +72,10 @@ export default {
       }
     },
     progressClick (e) {
-      console.log('ddd')
       const normalLeft = e.target.offsetLeft
       const eventLeft = e.pageX
       const progressWidth = e.target.offsetWidth
       const value = (eventLeft - normalLeft) / progressWidth
-      console.log(value)
       this.$refs.progressLine.style.width = value * 100 + '%'
       const currentTime = value * this.totalTime
       this.setCurrentTime(currentTime)

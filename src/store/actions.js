@@ -1,5 +1,5 @@
 import { SET_FULL_SCREEN, SET_MINI_PLAYER, SET_IS_PLAYING, SET_MODE_TYPE, SET_LIST_PLAYER, SET_SONG_DETAIL, SET_SONG_LYRIC, SET_DEL_SONG, SET_CURRENT_INDEX, SET_CURRENT_TIME } from './mutations-type'
-import { getSongDetail, getSongLyric, getSongURL } from '../api/index'
+import { getSongDetail, getSongLyric } from '../api/index'
 export default {
   setFullScreen ({ commit }, flag) {
     commit(SET_FULL_SCREEN, flag)
@@ -18,29 +18,10 @@ export default {
   },
   async setSongDetail ({ commit }, ids) {
     const result = await getSongDetail({ ids: ids.join(',') })
-    const urls = await getSongURL({ id: ids.join(',') })
-    // console.log(result)
     const list = []
-    // result.songs.forEach((value, index) => {
-    //   const obj = {}
-    //   obj.url = urls.data[index].url
-    //   obj.name = value.name
-    //   let singer = ''
-    //   value.ar.forEach((item, index) => {
-    //     if (index === 0) {
-    //       singer = item.name
-    //     } else {
-    //       singer += ' ' + item.name
-    //     }
-    //   })
-    //   obj.singer = singer
-    //   obj.picUrl = value.al.picUrl
-    //   obj.id = value.id
-    //   list.push(obj)
-    // })
     for (let i = 0; i < result.songs.length; i++) {
       const obj = {}
-      obj.url = urls.data[i].url
+      obj.url = ` https://music.163.com/song/media/outer/url?id=${result.songs[i].id}.mp3`
       obj.name = result.songs[i].name
       let singer = ''
       result.songs[i].ar.forEach((item, index) => {
