@@ -69,6 +69,9 @@ export default {
       }
     },
     getActiveLineNum (lineNum) {
+      if (lineNum < 0) {
+        return this.currentLineNum
+      }
       if (this.currentLyric[lineNum]) {
         return lineNum + ''
       } else {
@@ -82,6 +85,12 @@ export default {
         this.$refs.cdWrapper.classList.add('active')
       } else {
         this.$refs.cdWrapper.classList.remove('active')
+      }
+    },
+    currentLyric (newValue, oldValue) {
+      for (const key in newValue) {
+        this.currentLineNum = key
+        break
       }
     },
     currentTime (newValue, oldValue) {
