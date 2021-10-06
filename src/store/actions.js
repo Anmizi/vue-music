@@ -1,5 +1,5 @@
 import { SET_FULL_SCREEN, SET_MINI_PLAYER, SET_IS_PLAYING, SET_MODE_TYPE, SET_LIST_PLAYER, SET_SONG_DETAIL, SET_SONG_LYRIC, SET_DEL_SONG, SET_CURRENT_INDEX, SET_CURRENT_TIME } from './mutations-type'
-import { getSongDetail, getSongLyric } from '../api/index'
+import { getSongDetail, getSongLyric, getSongURL } from '../api/index'
 export default {
   setFullScreen ({ commit }, flag) {
     commit(SET_FULL_SCREEN, flag)
@@ -18,10 +18,16 @@ export default {
   },
   async setSongDetail ({ commit }, ids) {
     const result = await getSongDetail({ ids: ids.join(',') })
+    const urls = await getSongURL({ id: ids.join(',') })
     const list = []
     for (let i = 0; i < result.songs.length; i++) {
       const obj = {}
-      obj.url = ` https://music.163.com/song/media/outer/url?id=${result.songs[i].id}.mp3`
+      for (let j = 0; j < urls.data.length; j++) {
+        if (result.songs[i].id === urls.data[j].id) {
+          obj.url = urls.data[j].url
+          break
+        }
+      }
       obj.name = result.songs[i].name
       let singer = ''
       result.songs[i].ar.forEach((item, index) => {
