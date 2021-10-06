@@ -6,12 +6,13 @@
       </div>
       <p>{{getFirstLyric()}}</p>
     </swiper-slide>
-    <swiper-slide class="lyric">
-      <ScrollView>
+    <swiper-slide class="lyric" ref="lyric">
+      <ScrollView ref="ScrollView">
         <ul>
           <li
           v-for="value,index in currentLyric"
           :key="index"
+          :class="{'active': index === currentLineNum}"
           >{{value}}</li>
         </ul>
       </ScrollView>
@@ -38,7 +39,15 @@ export default {
         observer: true,
         observerParents: true,
         observerSlideChildren: true
-      }
+      },
+      currentLineNum: '0'
+    }
+  },
+  props: {
+    currentTime: {
+      type: Number,
+      default: 0,
+      required: true
     }
   },
   components: {
@@ -66,6 +75,19 @@ export default {
         this.$refs.cdWrapper.classList.add('active')
       } else {
         this.$refs.cdWrapper.classList.remove('active')
+      }
+    },
+    currentTime (newValue, oldValue) {
+      // 1.高亮歌词同步
+      const key = Math.floor(newValue) + ''
+      if (this.currentLyric[key]) {
+        this.currentLineNum = key
+        // 歌词滚动同步
+        const currentLyricTop = document.querySelector('li.active').offsetTop
+        const lyricHeight = this.$refs.lyric.$el.offsetHeight
+        if (currentLyricTop > lyricHeight / 2) {
+          this.$refs.ScrollView.scrollTo(0, -(currentLyricTop - lyricHeight / 2), 100)
+        }
       }
     }
   }
@@ -114,7 +136,10 @@ export default {
       @include font_color();
       margin: 10px 0;
       &:last-of-type{
-        padding-bottom: 100px;
+        padding-bottom: 60%;
+      }
+      &.active{
+        color: #ffff;
       }
     }
   }
