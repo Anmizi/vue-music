@@ -2,7 +2,7 @@
   <div class="player-bottom">
     <div class="bottom-progress">
       <span ref="elecurrentTime">00:00</span>
-      <div class="progress-bar" @click="progressClick">
+      <div class="progress-bar" @click="progressClick" ref="progressBar">
         <div class="progress-line" ref="progressLine">
           <div class="progress-dot"></div>
         </div>
@@ -72,9 +72,9 @@ export default {
       }
     },
     progressClick (e) {
-      const normalLeft = e.target.offsetLeft
+      const normalLeft = this.$refs.progressBar.offsetLeft
       const eventLeft = e.pageX
-      const progressWidth = e.target.offsetWidth
+      const progressWidth = this.$refs.progressBar.offsetWidth
       const value = (eventLeft - normalLeft) / progressWidth
       this.$refs.progressLine.style.width = value * 100 + '%'
       const currentTime = value * this.totalTime

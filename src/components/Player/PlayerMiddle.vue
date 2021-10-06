@@ -67,6 +67,13 @@ export default {
       for (const key in this.currentLyric) {
         return this.currentLyric[key]
       }
+    },
+    getActiveLineNum (lineNum) {
+      if (this.currentLyric[lineNum]) {
+        return lineNum + ''
+      } else {
+        return this.getActiveLineNum(--lineNum)
+      }
     }
   },
   watch: {
@@ -79,15 +86,24 @@ export default {
     },
     currentTime (newValue, oldValue) {
       // 1.高亮歌词同步
-      const key = Math.floor(newValue) + ''
-      if (this.currentLyric[key]) {
-        this.currentLineNum = key
-        // 歌词滚动同步
-        const currentLyricTop = document.querySelector('li.active').offsetTop
-        const lyricHeight = this.$refs.lyric.$el.offsetHeight
-        if (currentLyricTop > lyricHeight / 2) {
-          this.$refs.ScrollView.scrollTo(0, -(currentLyricTop - lyricHeight / 2), 100)
-        }
+      // const key = Math.floor(newValue) + ''
+      // if (this.currentLyric[key]) {
+      //   this.currentLineNum = key
+      //   // 歌词滚动同步
+      //   const currentLyricTop = document.querySelector('li.active').offsetTop
+      //   const lyricHeight = this.$refs.lyric.$el.offsetHeight
+      //   if (currentLyricTop > lyricHeight / 2) {
+      //     this.$refs.ScrollView.scrollTo(0, -(currentLyricTop - lyricHeight / 2), 100)
+      //   }
+      // }
+      const lineNum = Math.floor(newValue)
+      this.currentLineNum = this.getActiveLineNum(lineNum)
+      const currentLyricTop = document.querySelector('li.active').offsetTop
+      const lyricHeight = this.$refs.lyric.$el.offsetHeight
+      if (currentLyricTop > lyricHeight / 2) {
+        this.$refs.ScrollView.scrollTo(0, -(currentLyricTop - lyricHeight / 2), 100)
+      } else {
+        this.$refs.ScrollView.scrollTo(0, 0, 60)
       }
     }
   }
