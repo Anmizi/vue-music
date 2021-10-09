@@ -105,9 +105,13 @@ export default {
       //     this.$refs.ScrollView.scrollTo(0, -(currentLyricTop - lyricHeight / 2), 100)
       //   }
       // }
+
+      /* 无歌词或纯音乐无需滚动歌词 */
+      if (Object.keys(this.currentLyric).length <= 1) return
       const lineNum = Math.floor(newValue)
       this.currentLineNum = this.getActiveLineNum(lineNum)
-      const currentLyricTop = document.querySelector('li.active').offsetTop
+      const Li = document.querySelector('li.active')
+      const currentLyricTop = Li.offsetTop
       const lyricHeight = this.$refs.lyric.$el.offsetHeight
       if (currentLyricTop > lyricHeight / 2) {
         this.$refs.ScrollView.scrollTo(0, -(currentLyricTop - lyricHeight / 2), 100)

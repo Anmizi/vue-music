@@ -100,6 +100,7 @@ export default {
     },
     del (index) {
       this.setDelSong(index)
+      this.setIsPlaying(false)
     },
     selectMusic (index) {
       this.setCurrentIndex(index)
