@@ -104,7 +104,7 @@ export default {
     },
     isFavorite (song) {
       return this.favoriteList.find(function (newValue) {
-        return newValue === song
+        return newValue.id === song.id
       })
     },
     del (index) {
