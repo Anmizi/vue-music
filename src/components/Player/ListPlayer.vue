@@ -22,7 +22,7 @@
                   <p>{{ value.name }}</p>
                 </div>
                 <div class="item-right">
-                  <div class="item-favorite"></div>
+                  <div class="item-favorite" @click.stop="favorite(value)" :class="{active:isFavorite(value)}"></div>
                   <div class="item-del" @click.stop="del(index)"></div>
                 </div>
               </li>
@@ -52,7 +52,8 @@ export default {
       'setModeType',
       'setListPlayer',
       'setDelSong',
-      'setCurrentIndex'
+      'setCurrentIndex',
+      'setFavoriteSong'
     ]),
     hidden () {
       this.setListPlayer(false)
@@ -98,6 +99,14 @@ export default {
         this.setModeType(mode.loop)
       }
     },
+    favorite (song) {
+      this.setFavoriteSong(song)
+    },
+    isFavorite (song) {
+      return this.favoriteList.find(function (newValue) {
+        return newValue === song
+      })
+    },
     del (index) {
       this.setDelSong(index)
       this.setIsPlaying(false)
@@ -107,7 +116,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isPlaying', 'modeType', 'isShowListPlayer', 'songs', 'currentIndex'])
+    ...mapGetters([
+      'isPlaying',
+      'modeType',
+      'isShowListPlayer',
+      'songs',
+      'currentIndex',
+      'favoriteList'
+    ])
   },
   watch: {
     isPlaying (newValue, oldValue) {
@@ -226,7 +242,10 @@ export default {
           .item-favorite {
             width: 56px;
             height: 56px;
-            @include bg_img("../../assets/images/small_favorite");
+            @include bg_img("../../assets/images/small_un_favorite");
+            &.active{
+               @include bg_img("../../assets/images/small_favorite");
+            }
           }
           .item-del {
             width: 52px;

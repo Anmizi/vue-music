@@ -1,4 +1,4 @@
-import { SET_FULL_SCREEN, SET_MINI_PLAYER, SET_IS_PLAYING, SET_MODE_TYPE, SET_LIST_PLAYER, SET_SONG_DETAIL, SET_SONG_LYRIC, SET_DEL_SONG, SET_CURRENT_INDEX, SET_CURRENT_TIME } from './mutations-type'
+import { SET_FULL_SCREEN, SET_MINI_PLAYER, SET_IS_PLAYING, SET_MODE_TYPE, SET_LIST_PLAYER, SET_SONG_DETAIL, SET_SONG_LYRIC, SET_DEL_SONG, SET_CURRENT_INDEX, SET_CURRENT_TIME, SET_FAVORITE_SONG } from './mutations-type'
 import { getSongDetail, getSongLyric, getSongURL } from '../api/index'
 export default {
   setFullScreen ({ commit }, flag) {
@@ -63,6 +63,9 @@ export default {
   },
   setCurrentTime ({ commit }, time) {
     commit(SET_CURRENT_TIME, time)
+  },
+  setFavoriteSong ({ commit }, song) {
+    commit(SET_FAVORITE_SONG, song)
   }
 
 }

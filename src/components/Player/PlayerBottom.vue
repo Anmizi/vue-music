@@ -14,7 +14,7 @@
       <div class="prev" @click="prev"></div>
       <div class="play" @click="play" ref="play"></div>
       <div class="next" @click="next"></div>
-      <div class="favorite"></div>
+      <div class="favorite" @click="favorite" :class="{active: isFavorite()}"></div>
     </div>
   </div>
 </template>
@@ -29,7 +29,8 @@ export default {
       'setIsPlaying',
       'setModeType',
       'setCurrentIndex',
-      'setCurrentTime'
+      'setCurrentTime',
+      'setFavoriteSong'
     ]),
     play () {
       this.setIsPlaying(!this.isPlaying)
@@ -48,6 +49,14 @@ export default {
       } else if (this.modeType === mode.random) {
         this.setModeType(mode.loop)
       }
+    },
+    favorite () {
+      this.setFavoriteSong(this.currentSong)
+    },
+    isFavorite () {
+      return this.favoriteList.find((newValue) => {
+        return newValue === this.currentSong
+      })
     },
     formartTime (time) {
       // 2.得到两个时间之间的差值(秒)
@@ -85,7 +94,9 @@ export default {
     ...mapGetters([
       'isPlaying',
       'modeType',
-      'currentIndex'
+      'currentIndex',
+      'currentSong',
+      'favoriteList'
     ])
   },
   watch: {
@@ -213,7 +224,10 @@ export default {
       @include bg_img('../../assets/images/next')
     }
     .favorite{
-      @include bg_img('../../assets/images/un_favorite')
+      @include bg_img('../../assets/images/un_favorite');
+      &.active{
+        @include bg_img('../../assets/images/favorite')
+      }
     }
   }
 
