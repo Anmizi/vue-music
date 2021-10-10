@@ -55,7 +55,7 @@ export default {
     },
     isFavorite () {
       return this.favoriteList.find((newValue) => {
-        return newValue === this.currentSong
+        return newValue.id === this.currentSong.id
       })
     },
     formartTime (time) {

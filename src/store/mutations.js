@@ -1,4 +1,17 @@
-import { SET_FULL_SCREEN, SET_MINI_PLAYER, SET_IS_PLAYING, SET_MODE_TYPE, SET_LIST_PLAYER, SET_SONG_DETAIL, SET_SONG_LYRIC, SET_DEL_SONG, SET_CURRENT_INDEX, SET_CURRENT_TIME, SET_FAVORITE_SONG } from './mutations-type'
+import {
+  SET_FULL_SCREEN,
+  SET_MINI_PLAYER,
+  SET_IS_PLAYING,
+  SET_MODE_TYPE,
+  SET_LIST_PLAYER,
+  SET_SONG_DETAIL,
+  SET_SONG_LYRIC,
+  SET_DEL_SONG,
+  SET_CURRENT_INDEX,
+  SET_CURRENT_TIME,
+  SET_FAVORITE_SONG,
+  SET_FAVORITE_LIST
+} from './mutations-type'
 export default {
   [SET_FULL_SCREEN] (state, flag) {
     state.isFullScreen = flag
@@ -57,10 +70,13 @@ export default {
   },
   [SET_FAVORITE_SONG] (state, song) {
     const result = state.favoriteList.find(function (currenValue) {
-      return currenValue === song
+      return currenValue.id === song.id
     })
     if (result === undefined) {
       state.favoriteList.push(song)
     }
+  },
+  [SET_FAVORITE_LIST] (state, favoriteList) {
+    state.favoriteList = favoriteList
   }
 }
