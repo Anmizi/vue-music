@@ -10,7 +10,9 @@ import {
   SET_CURRENT_INDEX,
   SET_CURRENT_TIME,
   SET_FAVORITE_SONG,
-  SET_FAVORITE_LIST
+  SET_FAVORITE_LIST,
+  SET_HISTORY_LIST,
+  SET_HISTORY_SONG
 } from './mutations-type'
 import { getSongDetail, getSongLyric, getSongURL } from '../api/index'
 export default {
@@ -82,8 +84,13 @@ export default {
   },
   setFavoriteList ({ commit }, favoriteList) {
     commit(SET_FAVORITE_LIST, favoriteList)
+  },
+  setHistorySong ({ commit }, song) {
+    commit(SET_HISTORY_SONG, song)
+  },
+  setHistoryList ({ commit }, list) {
+    commit(SET_HISTORY_LIST, list)
   }
-
 }
 // 格式化歌词方法
 function parseLyric (lrc) {

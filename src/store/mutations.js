@@ -10,7 +10,9 @@ import {
   SET_CURRENT_INDEX,
   SET_CURRENT_TIME,
   SET_FAVORITE_SONG,
-  SET_FAVORITE_LIST
+  SET_FAVORITE_LIST,
+  SET_HISTORY_LIST,
+  SET_HISTORY_SONG
 } from './mutations-type'
 export default {
   [SET_FULL_SCREEN] (state, flag) {
@@ -76,7 +78,22 @@ export default {
       state.favoriteList.push(song)
     }
   },
+  [SET_HISTORY_SONG] (state, song) {
+    const result = state.historyList.find(function (currenValue) {
+      return currenValue.id === song.id
+    })
+
+    if (result === undefined) {
+      if (state.historyList.length > 30) {
+        state.historyList.splice(0, 1)
+      }
+      state.historyList.push(song)
+    }
+  },
   [SET_FAVORITE_LIST] (state, favoriteList) {
     state.favoriteList = favoriteList
+  },
+  [SET_HISTORY_LIST] (state, historyList) {
+    state.historyList = historyList
   }
 }
