@@ -1,12 +1,19 @@
 <template>
   <transition appear>
-    <div class="account"></div>
+    <div class="account">
+      <AccountHeader></AccountHeader>
+    </div>
+
   </transition>
 </template>
 
 <script>
+import AccountHeader from '../components/Account/AccountHeader.vue'
 export default {
-  name: 'Account'
+  name: 'Account',
+  components: {
+    AccountHeader
+  }
 }
 </script>
 
