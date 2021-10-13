@@ -30,6 +30,11 @@ const Detail = (resolve) => {
     resolve(module)
   })
 }
+const Account = (resolve) => {
+  import('../views/Account').then((module) => {
+    resolve(module)
+  })
+}
 const routes = [
   {
     path: '/',
@@ -61,6 +66,11 @@ const routes = [
     path: '/rank',
     name: 'Rank',
     component: Rank
+  },
+  {
+    path: '/account',
+    name: 'Account',
+    component: Account
   }
 ]
 
