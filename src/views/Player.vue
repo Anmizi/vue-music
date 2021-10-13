@@ -12,6 +12,7 @@ import NormalPlayer from '../components/Player/NormalPlayer'
 import MiniPlayer from '../components/Player/MiniPlayer'
 import ListPlayer from '../components/Player/ListPlayer'
 import mode from '../store/modeType'
+import { getRandomIntInclusive, setLocalStorage, getLocalStorage } from '../tools/tools'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'Player',
@@ -44,19 +45,14 @@ export default {
       } else if (this.modeType === mode.one) {
         this.$refs.audio.play()
       } else if (this.modeType === mode.random) {
-        const index = this.getRandomIntInclusive(0, this.songs.length - 1)
+        const index = getRandomIntInclusive(0, this.songs.length - 1)
         this.setCurrentIndex(index)
       }
-    },
-    getRandomIntInclusive (min, max) {
-      min = Math.ceil(min)
-      max = Math.floor(max)
-      return Math.floor(Math.random() * (max - min + 1)) + min // 含最大值，含最小值
     }
   },
   watch: {
     historyList (newVal, oldVal) {
-      window.localStorage.setItem('historyList', JSON.stringify(newVal))
+      setLocalStorage('historyList', newVal)
     },
     isPlaying (newVal, oldVal) {
       if (newVal) {
@@ -81,15 +77,15 @@ export default {
       this.$refs.audio.currentTime = newValue
     },
     favoriteList (newValue, oldValue) {
-      window.localStorage.setItem('favoriteList', JSON.stringify(newValue))
+      setLocalStorage('favoriteList', newValue)
     }
   },
   created () {
-    const favoriteList = window.localStorage.getItem('favoriteList')
+    const favoriteList = getLocalStorage('favoriteList')
     if (favoriteList === null) return
     this.setFavoriteList(JSON.parse(favoriteList))
 
-    const historyList = window.localStorage.getItem('historyList')
+    const historyList = getLocalStorage('historyList')
     if (historyList === null) return
     this.setHistoryList(JSON.parse(historyList))
   },
