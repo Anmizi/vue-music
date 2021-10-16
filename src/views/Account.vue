@@ -1,7 +1,8 @@
 <template>
   <transition appear>
     <div class="account">
-      <AccountHeader></AccountHeader>
+      <AccountHeader @switchItem="switchItem"></AccountHeader>
+      <AccountBottom :switchNum="switchNum"></AccountBottom>
     </div>
 
   </transition>
@@ -9,22 +10,35 @@
 
 <script>
 import AccountHeader from '../components/Account/AccountHeader.vue'
+import AccountBottom from '../components/Account/AccountBottom.vue'
 export default {
   name: 'Account',
   components: {
-    AccountHeader
+    AccountHeader,
+    AccountBottom
+  },
+  methods: {
+    switchItem (num) {
+      this.switchNum = num
+    }
+  },
+  data () {
+    return {
+      switchNum: 0
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/css/mixin';
 .account{
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background: #f00;
+  @include bg_sub_color()
 }
 
 .v-enter{

@@ -57,6 +57,7 @@ export default {
         h3{
           @include font_size($font_large);
           @include font_color();
+          @include no_wrap();
         }
         p{
           @include font_size($font_medium);
