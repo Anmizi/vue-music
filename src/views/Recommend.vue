@@ -66,7 +66,24 @@ export default {
       })
     getNewSong()
       .then((data) => {
-        this.songs = data.result
+        const list = []
+        data.result.forEach((item, index) => {
+          const obj = {}
+          obj.id = item.id
+          obj.name = item.name
+          obj.picUrl = item.picUrl
+          let singer = ''
+          for (let i = 0; i < item.song.artists.length; i++) {
+            if (i === 0) {
+              singer = item.song.artists[0].name
+            } else {
+              singer += ' ' + item.song.artists[i].name
+            }
+          }
+          obj.singer = singer
+          list.push(obj)
+        })
+        this.songs = list
       })
       .catch((error) => {
         console.log(error)
