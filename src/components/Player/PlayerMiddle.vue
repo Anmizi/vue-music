@@ -110,7 +110,7 @@ export default {
       if (Object.keys(this.currentLyric).length <= 1) return
       const lineNum = Math.floor(newValue)
       this.currentLineNum = this.getActiveLineNum(lineNum)
-      const Li = document.querySelector('li.active')
+      const Li = document.querySelector('.lyric li.active')
       const currentLyricTop = Li.offsetTop
       const lyricHeight = this.$refs.lyric.$el.offsetHeight
       if (currentLyricTop > lyricHeight / 2) {

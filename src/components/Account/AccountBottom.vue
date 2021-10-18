@@ -1,6 +1,6 @@
 <template>
   <div class="account-bottom">
-    <div class="bottom-play">
+    <div class="bottom-play" @click="selectAllMusic">
       <span></span>
       <span>播放全部</span>
     </div>
@@ -15,7 +15,7 @@
 <script>
 import ScrollView from '../ScrollView.vue'
 import SongListItem from '../SongListItem.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   name: 'AccountBottom',
   components: {
@@ -33,6 +33,25 @@ export default {
       type: Number,
       default: 0,
       required: true
+    }
+  },
+  methods: {
+    ...mapMutations([
+      'SET_SONG_DETAIL'
+    ]),
+    ...mapActions([
+      'setSongDetail',
+      'setFullScreen',
+      'setCurrentIndex'
+    ]),
+    selectAllMusic () {
+      if (this.switchNum === 0) {
+        this.SET_SONG_DETAIL(this.favoriteList)
+      } else if (this.switchNum === 1) {
+        this.SET_SONG_DETAIL(this.historyList)
+      }
+      this.setFullScreen(true)
+      this.setCurrentIndex(0)
     }
   }
 }
