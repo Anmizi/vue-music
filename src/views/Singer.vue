@@ -1,8 +1,8 @@
 <template>
   <div class="singer">
-    <ScrollView>
+    <ScrollView ref="ScrollView">
       <ul class="list-wrapper">
-        <li class="list-group" v-for="(value,index) in list" :key="index">
+        <li class="list-group" v-for="(value,index) in list" :key="index" ref="group">
           <h2 class="group-title">{{keys[index]}}</h2>
           <ul>
             <li class="group-item" v-for="obj in list[index]" :key="obj.id">
@@ -13,6 +13,9 @@
         </li>
       </ul>
     </ScrollView>
+    <ul class="list-keys">
+      <li v-for="(key,index) in keys" :key="key" @click.stop="keyDown(index)" :class="{'active': currentIndex === index}">{{key}}</li>
+    </ul>
   </div>
 </template>
 
@@ -37,7 +40,25 @@ export default {
   data () {
     return {
       keys: [],
-      list: []
+      list: [],
+      groupsTop: [],
+      currentIndex: 0
+    }
+  },
+  watch: {
+    list () {
+      this.$nextTick(() => {
+        this.$refs.group.forEach((group) => {
+          this.groupsTop.push(group.offsetTop)
+        })
+      })
+    }
+  },
+  methods: {
+    keyDown (index) {
+      this.currentIndex = index
+      const offsetY = this.groupsTop[index]
+      this.$refs.ScrollView.scrollTo(0, -offsetY)
     }
   }
 }
@@ -80,6 +101,20 @@ export default {
           @include font_size($font_medium);
           @include font_color();
         }
+      }
+    }
+  }
+  .list-keys{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    li{
+      @include font_color();
+      @include font_size($font_medium_s);
+      padding: 3px 0;
+      &.active{
+        text-shadow: 0 0 10px #000;
       }
     }
   }
