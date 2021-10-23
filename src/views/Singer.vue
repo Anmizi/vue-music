@@ -16,7 +16,7 @@
     <ul class="list-keys">
       <li v-for="(key,index) in keys" :key="key" :class="{'active': currentIndex === index}" :data-index="index" @touchstart.stop.prevent="touchstart" @touchmove.stop.prevent="touchmove">{{key}}</li>
     </ul>
-    <div class="fix-title" v-show="fixTitle !== ''">{{fixTitle}}</div>
+    <div class="fix-title" v-show="fixTitle !== ''" ref="fixTitle">{{fixTitle}}</div>
   </div>
 </template>
 
@@ -61,6 +61,19 @@ export default {
         const nextTop = this.groupsTop[i + 1]
         if (-y >= preTop && -y <= nextTop) {
           this.currentIndex = i
+
+          const diffOffsetY = nextTop + y
+          let fixTitleOffsetY = 0
+          if (diffOffsetY >= 0 && diffOffsetY <= this.fixTitleHeight) {
+            fixTitleOffsetY = diffOffsetY - this.fixTitleHeight
+          } else {
+            fixTitleOffsetY = 0
+          }
+          if (fixTitleOffsetY === this.fixTitleOffsetY) {
+            return
+          }
+          this.fixTitleOffsetY = fixTitleOffsetY
+          this.$refs.fixTitle.style.transform = `translateY(${fixTitleOffsetY}px)`
           return
         }
       }
@@ -84,6 +97,11 @@ export default {
         this.$refs.group.forEach((group) => {
           this.groupsTop.push(group.offsetTop)
         })
+      })
+    },
+    fixTitle () {
+      this.$nextTick(() => {
+        this.fixTitleHeight = this.$refs.fixTitle.offsetHeight
       })
     }
   },
