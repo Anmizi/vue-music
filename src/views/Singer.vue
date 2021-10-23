@@ -16,6 +16,7 @@
     <ul class="list-keys">
       <li v-for="(key,index) in keys" :key="key" :class="{'active': currentIndex === index}" :data-index="index" @touchstart.stop.prevent="touchstart" @touchmove.stop.prevent="touchmove">{{key}}</li>
     </ul>
+    <div class="fix-title" v-show="fixTitle !== ''">{{fixTitle}}</div>
   </div>
 </template>
 
@@ -26,6 +27,15 @@ export default {
   name: 'Singer',
   components: {
     ScrollView
+  },
+  computed: {
+    fixTitle () {
+      if (this.scrollY >= 0) {
+        return ''
+      } else {
+        return this.keys[this.currentIndex]
+      }
+    }
   },
   created () {
     getAllArtists()
@@ -39,6 +49,7 @@ export default {
   },
   mounted () {
     this.$refs.ScrollView.scrolling((y) => {
+      this.scrollY = y
       // 处理第一个区域
       if (y >= 0) {
         this.currentIndex = 0
@@ -63,7 +74,8 @@ export default {
       groupsTop: [],
       currentIndex: 0,
       beginOffsetY: 0,
-      moveOffsetY: 0
+      moveOffsetY: 0,
+      scrollY: 0
     }
   },
   watch: {
@@ -82,7 +94,6 @@ export default {
       this.$refs.ScrollView.scrollTo(0, -offsetY)
     },
     touchstart (e) {
-      console.log(e.target.dataset.index)
       const index = parseInt(e.target.dataset.index)
       this._keyDown(index)
       this.beginOffsetY = e.touches[0].pageY
@@ -156,6 +167,17 @@ export default {
         text-shadow: 0 0 10px #000;
       }
     }
+  }
+  .fix-title{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    @include font_size($font_medium);
+    color: #fff;
+    @include bg_color()
   }
 }
 </style>
