@@ -37,6 +37,25 @@ export default {
         console.log(error)
       })
   },
+  mounted () {
+    this.$refs.ScrollView.scrolling((y) => {
+      // 处理第一个区域
+      if (y >= 0) {
+        this.currentIndex = 0
+        return
+      }
+      // 处理中间区域
+      for (let i = 0; i < this.groupsTop.length - 1; i++) {
+        const preTop = this.groupsTop[i]
+        const nextTop = this.groupsTop[i + 1]
+        if (-y >= preTop && -y <= nextTop) {
+          this.currentIndex = i
+          return
+        }
+      }
+      this.currentIndex = this.groupsTop.length - 1
+    })
+  },
   data () {
     return {
       keys: [],
