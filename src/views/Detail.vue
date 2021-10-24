@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { getPlayList, getAlbum } from '../api/index'
+import { getPlayList, getAlbum, getArtistsSong } from '../api/index'
 import ScrollView from '../components/ScrollView'
 import SubHeader from '../components/Detail/DetailHeader'
 import DetailTop from '../components/Detail/DetailTop'
@@ -46,6 +46,18 @@ export default {
             name: data.album.name,
             coverImgUrl: data.album.picUrl,
             tracks: data.songs
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    } else if (type === 'singer') {
+      getArtistsSong({ id: this.$route.params.id })
+        .then(data => {
+          this.playlist = {
+            name: data.artist.name,
+            coverImgUrl: data.artist.picUrl,
+            tracks: data.hotSongs
           }
         })
         .catch(error => {

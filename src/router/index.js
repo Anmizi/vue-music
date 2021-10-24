@@ -55,7 +55,14 @@ const routes = [
   {
     path: '/singer',
     name: 'Singer',
-    component: Singer
+    component: Singer,
+    children: [
+      {
+        // 动态路由匹配
+        path: 'detail/:id/:type',
+        component: Detail
+      }
+    ]
   },
   {
     path: '/search',
