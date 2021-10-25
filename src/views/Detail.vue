@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { getPlayList, getAlbum, getArtistsSong } from '../api/index'
+import { getPlayList, getAlbum, getArtistsSong, getTopList } from '../api/index'
 import ScrollView from '../components/ScrollView'
 import SubHeader from '../components/Detail/DetailHeader'
 import DetailTop from '../components/Detail/DetailTop'
@@ -58,6 +58,20 @@ export default {
             name: data.artist.name,
             coverImgUrl: data.artist.picUrl,
             tracks: data.hotSongs
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    } else if (type === 'rank') {
+      getTopList({ id: this.$route.params.id })
+        .then(data => {
+          console.log(data)
+
+          this.playlist = {
+            name: data.playlist.name,
+            coverImgUrl: data.playlist.coverImgUrl,
+            tracks: data.playlist.tracks
           }
         })
         .catch(error => {

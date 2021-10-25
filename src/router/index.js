@@ -72,7 +72,14 @@ const routes = [
   {
     path: '/rank',
     name: 'Rank',
-    component: Rank
+    component: Rank,
+    children: [
+      {
+        // 动态路由匹配
+        path: 'detail/:id/:type',
+        component: Detail
+      }
+    ]
   },
   {
     path: '/account',
