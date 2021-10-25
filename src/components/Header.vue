@@ -1,7 +1,7 @@
 <template>
     <div class="header" @click="changeTheme">
         <div class="header-left"></div>
-        <p class="header-title">知播渔音乐</p>
+        <p class="header-title">VueMusic</p>
         <div class="header-right" @click.stop="accountClick"></div>
     </div>
 </template>
