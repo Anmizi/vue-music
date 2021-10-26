@@ -26,12 +26,24 @@
         <li v-for="(value,index) in hots" :key="index" @click.stop="selectHot(value.first)">{{value.first}}</li>
       </ul>
     </div>
+    <ul class="search-history">
+      <li v-for="value in searchHistroy" :key="value">
+        <div class="history-left">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMCAzMCI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsPSIjYzljYWNhIiBkPSJNMTUgMzBDNi43MTYgMzAgMCAyMy4yODQgMCAxNVM2LjcxNiAwIDE1IDBzMTUgNi43MTYgMTUgMTUtNi43MTYgMTUtMTUgMTVtMC0yOEM3LjgyIDIgMiA3LjgyIDIgMTVzNS44MiAxMyAxMyAxMyAxMy01LjgyIDEzLTEzUzIyLjE4IDIgMTUgMm03IDE2aC04YTEgMSAwIDAgMS0xLTFWN2ExIDEgMCAxIDEgMiAwdjloN2ExIDEgMCAxIDEgMCAyIi8+PC9zdmc+" alt="">
+          <p>{{value}}</p>
+        </div>
+        <div class="history-right">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsPSIjOTk5ODk5IiBkPSJNMTMuMzc5IDEybDEwLjMzOCAxMC4zMzdhLjk3NS45NzUgMCAxIDEtMS4zNzggMS4zNzlMMTIuMDAxIDEzLjM3OCAxLjY2MyAyMy43MTZhLjk3NC45NzQgMCAxIDEtMS4zNzgtMS4zNzlMMTAuNjIzIDEyIC4yODUgMS42NjJBLjk3NC45NzQgMCAxIDEgMS42NjMuMjg0bDEwLjMzOCAxMC4zMzhMMjIuMzM5LjI4NGEuOTc0Ljk3NCAwIDEgMSAxLjM3OCAxLjM3OEwxMy4zNzkgMTIiLz48L3N2Zz4=" alt="" @click.stop="deleteItem(value)">
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 import ScrollView from '../components/ScrollView'
 import { getSearchList, getSearchHot } from '../api/index'
+import { setLocalStorage, getLocalStorage } from '../tools/tools'
 import { mapActions } from 'vuex'
 export default {
   name: 'Search',
@@ -42,18 +54,23 @@ export default {
     return {
       keywords: '',
       songs: [],
-      hots: []
+      hots: [],
+      searchHistroy: []
     }
   },
   created () {
     getSearchHot()
       .then(data => {
-        console.log(data)
         this.hots = data.result.hots
       })
       .catch(error => {
         console.log(error)
       })
+    const history = getLocalStorage('searchhistory')
+    if (history == null) {
+      return
+    }
+    this.searchHistroy = JSON.parse(history)
   },
   directives: {
     throttle: {
@@ -93,10 +110,21 @@ export default {
     selectMusic (id) {
       this.setFullScreen(true)
       this.setSongDetail([id])
+      if (this.searchHistroy.includes(this.keywords)) {
+        return
+      }
+      this.searchHistroy.push(this.keywords)
+      setLocalStorage('searchhistory', this.searchHistroy)
     },
     selectHot (name) {
       this.keywords = name
       this.search()
+    },
+    deleteItem (name) {
+      this.searchHistroy = this.searchHistroy.filter(item => {
+        return item !== name
+      })
+      setLocalStorage('searchhistory', this.searchHistroy)
     }
   }
 
@@ -178,6 +206,35 @@ export default {
           margin: 10px 20px;
         }
       }
+  }
+  .search-history{
+    margin-top: 20px;
+    li{
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 20px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      .history-left{
+        display: flex;
+        img{
+          width: 40px;
+          height: 40px;
+        }
+        p{
+          margin-left: 20px;
+          @include font_color();
+          @include font_size($font_medium);
+        }
+      }
+      .history-right{
+        img{
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
   }
 }
 </style>
