@@ -10,7 +10,7 @@
     <div class="search-suggest" v-show="keywords !== ''">
       <ScrollView>
         <ul>
-          <li v-for="value in songs" :key="value.id">
+          <li v-for="value in songs" :key="value.id" @click.stop="selectMusic(value.id)">
             <img
               src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNiAyNiI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBmaWxsPSIjYzljOWNhIiBkPSJNMjUuMTgxIDIzLjUzNWwtMS40MTQgMS40MTQtNy4zMTUtNy4zMTRBOS45NjYgOS45NjYgMCAwIDEgMTAgMjBDNC40NzcgMjAgMCAxNS41MjMgMCAxMFM0LjQ3NyAwIDEwIDBzMTAgNC40NzcgMTAgMTBjMCAyLjM0Mi0uODExIDQuNDktMi4xNiA2LjE5NWw3LjM0MSA3LjM0ek0xMCAyYTggOCAwIDEgMCAwIDE2IDggOCAwIDAgMCAwLTE2eiIvPjwvc3ZnPg=="
               alt=""
@@ -26,6 +26,7 @@
 <script>
 import ScrollView from '../components/ScrollView'
 import { getSearchList } from '../api/index'
+import { mapActions } from 'vuex'
 export default {
   name: 'Search',
   components: {
@@ -57,6 +58,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'setFullScreen',
+      'setSongDetail'
+    ]),
     search () {
       getSearchList({ keywords: this.keywords })
         .then(data => {
@@ -65,6 +70,10 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    },
+    selectMusic (id) {
+      this.setFullScreen(true)
+      this.setSongDetail([id])
     }
   }
 
