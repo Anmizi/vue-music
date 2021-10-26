@@ -20,12 +20,18 @@
         </ul>
       </ScrollView>
     </div>
+    <div class="search-hot">
+      <h3>热门搜索</h3>
+      <ul>
+        <li v-for="(value,index) in hots" :key="index" @click.stop="selectHot(value.first)">{{value.first}}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 import ScrollView from '../components/ScrollView'
-import { getSearchList } from '../api/index'
+import { getSearchList, getSearchHot } from '../api/index'
 import { mapActions } from 'vuex'
 export default {
   name: 'Search',
@@ -35,8 +41,19 @@ export default {
   data () {
     return {
       keywords: '',
-      songs: []
+      songs: [],
+      hots: []
     }
+  },
+  created () {
+    getSearchHot()
+      .then(data => {
+        console.log(data)
+        this.hots = data.result.hots
+      })
+      .catch(error => {
+        console.log(error)
+      })
   },
   directives: {
     throttle: {
@@ -63,6 +80,8 @@ export default {
       'setSongDetail'
     ]),
     search () {
+      // 搜索词为空不发送请求
+      if (this.keywords.length === 0) return
       getSearchList({ keywords: this.keywords })
         .then(data => {
           this.songs = data.result.songs
@@ -74,6 +93,10 @@ export default {
     selectMusic (id) {
       this.setFullScreen(true)
       this.setSongDetail([id])
+    },
+    selectHot (name) {
+      this.keywords = name
+      this.search()
     }
   }
 
@@ -117,6 +140,7 @@ export default {
     left: 0;
     right: 0;
     overflow: hidden;
+    @include bg_sub_color();
     li {
       display: flex;
       align-items: center;
@@ -133,6 +157,27 @@ export default {
         @include font_size($font_medium);
       }
     }
+  }
+  .search-hot{
+    h3{
+      @include font_size($font_medium);
+      @include font_color();
+      padding: 10px 20px;
+    }
+    ul{
+        display: flex;
+        flex-wrap: wrap;
+        li{
+          height: 60px;
+          line-height: 60px;
+          border: 1px solid #000;
+          border-radius: 30px;
+          @include font_color();
+          @include font_size($font_medium);
+          padding: 0 20px;
+          margin: 10px 20px;
+        }
+      }
   }
 }
 </style>

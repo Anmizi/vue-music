@@ -118,3 +118,4 @@ export const getTopListDetail = (data) => {
 
 export const getTopList = (data) => Network.get('playlist/detail', data)
 export const getSearchList = (data) => Network.get('search', data)
+export const getSearchHot = (data) => Network.get('search/hot', data)
