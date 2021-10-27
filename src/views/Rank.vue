@@ -54,7 +54,6 @@ export default {
     getTopListDetail()
       .then((data) => {
         this.category = data
-        console.log(data)
       })
       .catch((error) => {
         console.log(error)
