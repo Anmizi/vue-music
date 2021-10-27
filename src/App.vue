@@ -1,18 +1,18 @@
 <template>
 <div id="app">
-  <Header />
+  <MainHeader />
   <Tabbar></Tabbar>
   <router-view></router-view>
   <Player v-show="isShow"></Player>
 </div>
 </template>
 <script>
-import Header from './components/Header'
+import MainHeader from './components/MainHeader'
 import Tabbar from './components/Tabbar'
 import Player from './views/Player'
 export default {
   name: 'App',
-  components: { Header, Tabbar, Player },
+  components: { MainHeader, Tabbar, Player },
   data () {
     return {
       isShow: true

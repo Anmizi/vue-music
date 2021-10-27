@@ -1,18 +1,25 @@
 <template>
-    <div class="header" @click="changeTheme">
+    <Header>
+      <template v-slot:left>
         <div class="header-left" @click.stop="back"></div>
+      </template>
+      <template v-slot:center>
         <ul class="header-title">
           <li :class="{'active': switchNum === 0}" @click.stop="switchItem(0)">我喜欢的</li>
           <li :class="{'active': switchNum === 1}" @click.stop="switchItem(1)">最近听的</li>
         </ul>
+      </template>
+      <template v-slot:right>
         <div class="header-right"></div>
-    </div>
+      </template>
+    </Header>
 </template>
 <script>
+import Header from '../Header'
 export default {
   name: 'AccountHeader',
-  props: {
-
+  components: {
+    Header
   },
   data () {
     return {
@@ -22,13 +29,6 @@ export default {
     }
   },
   methods: {
-    changeTheme () {
-      this.index++
-      if (this.index >= this.themes.length) {
-        this.index = 0
-      }
-      document.documentElement.setAttribute('data-theme', this.themes[this.index])
-    },
     back () {
       window.history.back()
     },
@@ -41,19 +41,21 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../../assets/css/mixin.scss';
-.header{
-  position: relative;
-  z-index: 999;
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-  @include bg_color();
-  .header-left, .header-right{
-    width: 84px;
-    height: 84px;
-    margin-top: 8px;
-  }
+// .header{
+//   position: relative;
+//   z-index: 999;
+//   width: 100%;
+//   height: 100px;
+//   display: flex;
+//   justify-content: space-between;
+//   @include bg_color();
+//   .header-left, .header-right{
+//     width: 84px;
+//     height: 84px;
+//     margin-top: 8px;
+//   }
+
+// }
   .header-left{
     @include bg_img('../../assets/images/back')
   }
@@ -83,5 +85,4 @@ export default {
       }
     }
   }
-}
 </style>
