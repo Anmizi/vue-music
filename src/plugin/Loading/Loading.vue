@@ -1,14 +1,20 @@
 <template>
-  <div class="container">
+  <div class="container" v-show="isShow">
     <div class="loading">
     </div>
-    <p class="title">正在加载...</p>
+    <p class="title">{{title}}</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Loading'
+  name: 'Loading',
+  data () {
+    return {
+      title: '正在加载中...',
+      isShow: false
+    }
+  }
 }
 </script>
 
