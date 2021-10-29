@@ -66,8 +66,6 @@ export default {
     } else if (type === 'rank') {
       getTopList({ id: this.$route.params.id })
         .then(data => {
-          console.log(data)
-
           this.playlist = {
             name: data.playlist.name,
             coverImgUrl: data.playlist.coverImgUrl,
