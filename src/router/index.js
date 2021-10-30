@@ -89,7 +89,10 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // history模式上线刷新后会出现404
+  // mode: 'history',
+  // hash模式不利于seo
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes
 })
