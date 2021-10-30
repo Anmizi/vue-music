@@ -57,12 +57,19 @@ export default {
     isPlaying (newVal, oldVal) {
       if (newVal) {
         this.setHistorySong(this.currentSong)
+        console.log('dddd')
         this.$refs.audio.play()
       } else {
         this.$refs.audio.pause()
       }
     },
-    currentIndex () {
+    curTime (newValue, oldValue) {
+      this.$refs.audio.currentTime = newValue
+    },
+    favoriteList (newValue, oldValue) {
+      setLocalStorage('favoriteList', newValue)
+    },
+    currentSong () {
       this.$refs.audio.ondurationchange = () => {
         this.totalTime = this.$refs.audio.duration
         if (this.isPlaying) {
@@ -72,12 +79,6 @@ export default {
           this.$refs.audio.pause()
         }
       }
-    },
-    curTime (newValue, oldValue) {
-      this.$refs.audio.currentTime = newValue
-    },
-    favoriteList (newValue, oldValue) {
-      setLocalStorage('favoriteList', newValue)
     }
   },
   created () {
