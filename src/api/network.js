@@ -3,7 +3,7 @@ import Vue from 'vue'
 
 // 进行全局配置
 axios.defaults.baseURL = 'http://10.77.169.66:8080'
-axios.defaults.timeout = 3000
+axios.defaults.timeout = 6000
 // 添加请求拦截器
 let count = 0
 axios.interceptors.request.use(function (config) {
