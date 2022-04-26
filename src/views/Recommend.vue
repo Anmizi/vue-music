@@ -1,23 +1,24 @@
 <template>
   <div class="recommend">
     <div class="recommend-wrapper">
-       <ScrollView>
-      <div>
-        <Banner :banners="banners"></Banner>
-        <Personalized
-          :personalized="personalized"
-          :title="'推荐歌单'"
-          :type="'personalized'"
-          @select = "fatherSelectItem"
-        ></Personalized>
-        <Personalized
-        :personalized="albums"
-        :title="'最新专辑'"
-        :type="'albums'"
-        @select = "fatherSelectItem"></Personalized>
-        <SongList :songs="songs"></SongList>
-      </div>
-    </ScrollView>
+      <ScrollView>
+        <div>
+          <Banner :banners="banners"></Banner>
+          <Personalized
+            :personalized="personalized"
+            :title="'推荐歌单'"
+            :type="'personalized'"
+            @select="fatherSelectItem"
+          ></Personalized>
+          <Personalized
+            :personalized="albums"
+            :title="'最新专辑'"
+            :type="'albums'"
+            @select="fatherSelectItem"
+          ></Personalized>
+          <SongList :songs="songs"></SongList>
+        </div>
+      </ScrollView>
     </div>
     <transition>
       <router-view></router-view>
@@ -26,7 +27,12 @@
 </template>
 
 <script>
-import { getBanner, getPersonalized, getNewAlbum, getNewSong } from '../api/index'
+import {
+  getBanner,
+  getPersonalized,
+  getNewAlbum,
+  getNewSong
+} from '../api/index'
 import Banner from '../components/Recommend/Banner'
 import Personalized from '../components/Recommend/Personalized'
 import SongList from '../components/Recommend/SongList'
@@ -100,35 +106,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.recommend{
+.recommend {
   position: fixed;
   top: 184px;
   left: 0;
   right: 0;
   bottom: 0;
-  .recommend-wrapper{
+  .recommend-wrapper {
     width: 100%;
     height: 100%;
     overflow: hidden;
   }
 }
-.v-enter{
+.v-enter {
   transform: translateX(100%);
 }
-.v-enter-to{
+.v-enter-to {
   transform: translateX(0%);
 }
-.v-enter-active{
+.v-enter-active {
   transition: transform 1s;
 }
-.v-leave{
+.v-leave {
   transform: translateX(0%);
 }
-.v-leave-to{
+.v-leave-to {
   transform: translateX(100%);
 }
-.v-leave-active{
+.v-leave-active {
   transition: transform 1s;
 }
-
 </style>

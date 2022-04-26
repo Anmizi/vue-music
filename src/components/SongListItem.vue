@@ -1,7 +1,7 @@
 <template>
   <ul class="song-list">
     <li v-for="value in songs" :key="value.id" class="item" @click="selectMusic(value.id)">
-      <img v-lazy="value.picUrl" alt="">
+      <img v-lazy="value.picUrl + songImgSize" :alt="value.name">
       <div>
         <h3>{{value.name}}</h3>
         <p>{{value.singer}}</p>
@@ -14,6 +14,11 @@
 import { mapActions } from 'vuex'
 export default {
   name: 'SongListItem',
+  data () {
+    return {
+      songImgSize: '?param=200y200'
+    }
+  },
   props: {
     songs: {
       type: Array,

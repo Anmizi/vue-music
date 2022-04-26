@@ -2,7 +2,7 @@
   <swiper ref="mySwiper" :options="swiperOptions" class="banner">
     <swiper-slide v-for="value in banners" :key="value.bannerId" class="item">
       <a :href="value.url">
-        <img :src="value.pic" alt="">
+        <img :src="value.pic + bannerImgSize" alt="">
       </a>
     </swiper-slide>
     <div class="swiper-pagination" slot="pagination"></div>
@@ -36,7 +36,9 @@ export default {
         observer: true,
         observerParents: true,
         observerSlideChildren: true
-      }
+      },
+      // 控制banner图大小
+      bannerImgSize: '?param=750y300'
     }
   },
   components: {
