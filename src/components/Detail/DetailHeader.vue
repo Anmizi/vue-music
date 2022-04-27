@@ -1,15 +1,17 @@
 <template>
+  <div class="subheader">
     <Header>
       <template v-slot:left>
         <div class="header-left" @click.stop="back"></div>
       </template>
       <template v-slot:center>
-        <p class="header-title">{{title}}</p>
+        <p class="header-title">{{ title }}</p>
       </template>
       <template v-slot:right>
         <div class="header-right"></div>
       </template>
     </Header>
+  </div>
 </template>
 <script>
 import Header from '../Header'
@@ -39,33 +41,22 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '../../assets/css/mixin.scss';
-// .header{
-//   position: relative;
-//   z-index: 999;
-//   width: 100%;
-//   height: 100px;
-//   display: flex;
-//   justify-content: space-between;
-//   @include bg_color();
-//   .header-left, .header-right{
-//     width: 84px;
-//     height: 84px;
-//     margin-top: 8px;
-//   }
-
-// }
-  .header-left{
-    @include bg_img('../../assets/images/back')
-  }
-  .header-right{
-    @include bg_img('../../assets/images/more')
-  }
-  .header-title{
-    text-align: center;
-    line-height: 100px;
-    color: #fff;
-    font-weight: bold;
-    @include no_wrap();
-  }
+@import "../../assets/css/mixin.scss";
+.subheader {
+  position: relative;
+  z-index: 1;
+}
+.header-left {
+  @include bg_img("../../assets/images/back");
+}
+.header-right {
+  @include bg_img("../../assets/images/more");
+}
+.header-title {
+  text-align: center;
+  line-height: 100px;
+  color: #fff;
+  font-weight: bold;
+  @include no_wrap();
+}
 </style>

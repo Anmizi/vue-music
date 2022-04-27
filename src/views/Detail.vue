@@ -88,7 +88,6 @@ export default {
 
         const scale = Math.abs(offsetY) / defaultHeight
         this.$refs.top.changeMask(scale)
-        console.log(this.$refs.top)
       } else {
         // 向下滚动
         const scale = 1 + offsetY / defaultHeight
