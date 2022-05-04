@@ -3,16 +3,20 @@
     <ScrollView>
       <ul>
         <li v-for="(value, key) in category['titles']" :key="key">
-          <h3 class="group-title">{{value}}</h3>
+          <h3 class="group-title">{{ value }}</h3>
           <ul class="normal-group" v-if="value === '官方榜'">
-            <li v-for="obj in category[key]" :key="obj.rank.id" @click.stop="selectedItem(obj.id)">
+            <li
+              v-for="obj in category[key]"
+              :key="obj.rank.id"
+              @click.stop="selectedItem(obj.id)"
+            >
               <div class="rank-left">
-                <img v-lazy="obj.rank.coverImgUrl" alt="">
-                <p>{{obj.rank.updateFrequency}}</p>
+                <img v-lazy="obj.rank.coverImgUrl + imgSize" alt="" />
+                <p>{{ obj.rank.updateFrequency }}</p>
               </div>
               <div class="rank-right">
-                <p v-for="(song,index) in obj.rank.tracks" :key="song.first">
-                  {{index + 1}}.{{song.first}}-{{song.second}}
+                <p v-for="(song, index) in obj.rank.tracks" :key="song.first">
+                  {{ index + 1 }}.{{ song.first }}-{{ song.second }}
                 </p>
               </div>
             </li>
@@ -20,11 +24,11 @@
           <ul class="other-group" v-else>
             <li v-for="obj in category[key]" :key="obj.rank.id">
               <div class="rank-top">
-                <img v-lazy="obj.rank.coverImgUrl" alt="">
-                <p>{{obj.rank.updateFrequency}}</p>
+                <img v-lazy="obj.rank.coverImgUrl + imgSize" alt="" />
+                <p>{{ obj.rank.updateFrequency }}</p>
               </div>
               <div class="rank-bottom">
-                <p>{{obj.rank.name}}</p>
+                <p>{{ obj.rank.name }}</p>
               </div>
             </li>
           </ul>
@@ -47,7 +51,9 @@ export default {
   },
   data () {
     return {
-      category: {}
+      category: {},
+      // 限制图片大小
+      imgSize: '?param=300y300'
     }
   },
   created () {
@@ -69,7 +75,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "../assets/css/mixin";
-.rank{
+.rank {
   overflow: hidden;
   position: fixed;
   left: 0;
@@ -77,26 +83,26 @@ export default {
   top: 184px;
   bottom: 0;
   @include bg_sub_color();
-  .group-title{
+  .group-title {
     padding: 10px 20px;
     @include font_color();
     @include font_size($font_large);
     font-weight: bold;
   }
-  .normal-group{
-    li{
+  .normal-group {
+    li {
       display: flex;
       padding: 10px 20px;
       box-sizing: border-box;
       align-items: center;
-      .rank-left{
+      .rank-left {
         position: relative;
-        img{
+        img {
           width: 200px;
           height: 200px;
           border-radius: 10px;
         }
-        p{
+        p {
           position: absolute;
           left: 10px;
           bottom: 10px;
@@ -104,9 +110,9 @@ export default {
           @include font_size($font_medium_s);
         }
       }
-      .rank-right{
+      .rank-right {
         margin-left: 20px;
-        p{
+        p {
           @include font_color();
           @include font_size($font_medium_s);
           padding: 10px 0;
@@ -114,24 +120,24 @@ export default {
       }
     }
   }
-  .other-group{
+  .other-group {
     display: flex;
     flex-wrap: wrap;
-    li{
+    li {
       flex: 1;
       width: 33.3%;
       min-width: 33.3%;
       max-width: 33.3%;
       padding: 10px 20px;
       box-sizing: border-box;
-      .rank-top{
+      .rank-top {
         position: relative;
-        img{
+        img {
           width: 100%;
           height: 200px;
           border-radius: 10px;
         }
-        p{
+        p {
           position: absolute;
           left: 10px;
           bottom: 10px;
@@ -139,10 +145,10 @@ export default {
           @include font_size($font_medium_s);
         }
       }
-      .rank-bottom{
+      .rank-bottom {
         width: 200px;
         @include no_wrap();
-        p{
+        p {
           text-align: center;
           padding: 10px 0;
           @include font_color();
@@ -151,24 +157,23 @@ export default {
       }
     }
   }
-
 }
-.v-enter{
+.v-enter {
   transform: translateX(100%);
 }
-.v-enter-to{
+.v-enter-to {
   transform: translateX(0%);
 }
-.v-enter-active{
+.v-enter-active {
   transition: transform 1s;
 }
-.v-leave{
+.v-leave {
   transform: translateX(0%);
 }
-.v-leave-to{
+.v-leave-to {
   transform: translateX(100%);
 }
-.v-leave-active{
+.v-leave-active {
   transition: transform 1s;
 }
 </style>

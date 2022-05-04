@@ -6,7 +6,7 @@
           <h2 class="group-title">{{keys[index]}}</h2>
           <ul>
             <li class="group-item" v-for="obj in list[index]" :key="obj.id" @click.stop="switchSinger(obj.id)">
-              <img v-lazy="obj.img1v1Url" alt="">
+              <img v-lazy="obj.img1v1Url + imgSize" alt="">
               <p>{{obj.name}}</p>
             </li>
           </ul>
@@ -51,6 +51,7 @@ export default {
       })
   },
   mounted () {
+    // 监听歌手列表滚动事件
     this.$refs.ScrollView.scrolling((y) => {
       this.scrollY = y
       // 处理第一个区域
@@ -91,10 +92,13 @@ export default {
       currentIndex: 0,
       beginOffsetY: 0,
       moveOffsetY: 0,
-      scrollY: 0
+      scrollY: 0,
+      // 限制图片尺寸
+      imgSize: '?param=165y165'
     }
   },
   watch: {
+    // 监听歌手数据列表变化,获取不同歌手分类区域距离父盒子顶部的距离
     list () {
       this.$nextTick(() => {
         this.$refs.group.forEach((group) => {
