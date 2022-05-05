@@ -2,7 +2,7 @@
   <swiper ref="mySwiper" :options="swiperOptions" class="banner">
     <swiper-slide class="cd">
       <div class="cd-wrapper" ref="cdWrapper">
-        <img :src="currentSong.picUrl" alt="">
+        <img :src="currentSong.picUrl + imgSize" alt="">
       </div>
       <p>{{getFirstLyric()}}</p>
     </swiper-slide>
@@ -40,7 +40,8 @@ export default {
         observerParents: true,
         observerSlideChildren: true
       },
-      currentLineNum: '0'
+      currentLineNum: '0',
+      imgSize: '?param=400y400'
     }
   },
   props: {

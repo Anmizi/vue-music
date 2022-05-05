@@ -4,13 +4,13 @@
       <div class="player-wrapper">
         <PlayerHeader></PlayerHeader>
         <PlayerMiddle :currentTime="currentTime"></PlayerMiddle>
-        <PlayerBottom :totalTime="totalTime" :currentTime="currentTime"></PlayerBottom>
+        <PlayerBottom
+          :totalTime="totalTime"
+          :currentTime="currentTime"
+        ></PlayerBottom>
       </div>
       <div class="player-bg">
-        <img
-          :src="currentSong.picUrl"
-          alt=""
-        />
+        <img :src="currentSong.picUrl + imgSize" alt="" />
       </div>
     </div>
   </transition>
@@ -26,29 +26,39 @@ import 'velocity-animate/velocity.ui'
 export default {
   name: 'NormalPlayer',
   components: { PlayerHeader, PlayerMiddle, PlayerBottom },
+  data () {
+    return {
+      imgSize: '?param=400y400'
+    }
+  },
   computed: {
-    ...mapGetters([
-      'isFullScreen',
-      'currentSong'
-    ])
+    ...mapGetters(['isFullScreen', 'currentSong'])
   },
   methods: {
-    ...mapActions([
-      'getSongLyric'
-    ]),
+    ...mapActions(['getSongLyric']),
     enter (el, done) {
-      Velocity(el, 'transition.slideLeftBigIn', {
-        duration: 500
-      }, function () {
-        done()
-      })
+      Velocity(
+        el,
+        'transition.slideLeftBigIn',
+        {
+          duration: 500
+        },
+        function () {
+          done()
+        }
+      )
     },
     leave (el, done) {
-      Velocity(el, 'transition.slideLeftBigOut', {
-        duration: 500
-      }, function () {
-        done()
-      })
+      Velocity(
+        el,
+        'transition.slideLeftBigOut',
+        {
+          duration: 500
+        },
+        function () {
+          done()
+        }
+      )
     }
   },
   watch: {

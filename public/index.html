@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh_CN">
 
 <head>
   <meta charset="utf-8">
@@ -26,8 +26,12 @@
   <script>
     // dpr设备像素比 物理像素/css像素
     let scale = 1.0 / window.devicePixelRatio;
-    let text = `<meta name="viewport" content="width=device-width, initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}, user-scalable=no">`;
-    document.write(text);
+    let metaName = 'viewport';
+    let metaContent = `width=device-width, initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}, user-scalable=no`
+    let meta = document.createElement('meta');
+    meta.name = metaName;
+    meta.content = metaContent;
+    document.getElementsByTagName('head')[0].appendChild(meta);
     document.documentElement.style.fontSize = window.innerWidth / 7.5 + "px";
     document.documentElement.setAttribute('data-dpr', parseInt(window.devicePixelRatio) + '');
     document.documentElement.setAttribute('data-theme', 'theme')
