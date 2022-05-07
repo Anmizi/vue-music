@@ -10,7 +10,7 @@
         ></PlayerBottom>
       </div>
       <div class="player-bg">
-        <img :src="currentSong.picUrl + imgSize" alt="" />
+        <img :src="currentSong.picUrl ? currentSong.picUrl + imgSize : ''" alt="" />
       </div>
     </div>
   </transition>

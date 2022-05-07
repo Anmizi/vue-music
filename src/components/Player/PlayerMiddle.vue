@@ -2,7 +2,7 @@
   <swiper ref="mySwiper" :options="swiperOptions" class="banner">
     <swiper-slide class="cd">
       <div class="cd-wrapper" ref="cdWrapper">
-        <img :src="currentSong.picUrl + imgSize" alt="">
+        <img :src="currentSong.picUrl ? currentSong.picUrl + imgSize : ''" alt="">
       </div>
       <p>{{getFirstLyric()}}</p>
     </swiper-slide>

@@ -80,6 +80,8 @@ export default {
   mounted () {
     const defaultHeight = this.$refs.top.$el.offsetHeight
     this.$refs.scrollview.scrolling((offsetY) => {
+      // 若滚动组件已经销毁,不再触发滚动事件回调
+      if (!this.$refs.scrollview) return
       if (offsetY < 0) {
         // 向上滚动
         // const scale = 10 * Math.abs(offsetY) / defaultHeight

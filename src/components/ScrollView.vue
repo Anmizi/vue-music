@@ -59,6 +59,12 @@ export default {
     scrollTo (x, y, time) {
       this.iscroll.scrollTo(x, y, time)
     }
+  },
+  beforeDestroy () {
+    // 销毁iscroll
+    // console.log(this.iscroll)
+    // this.iscroll.off('scroll')
+    this.iscroll.destroy()
   }
 }
 </script>
